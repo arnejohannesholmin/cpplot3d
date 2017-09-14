@@ -1,0 +1,10 @@
+########## Version 1.0 ##########
+
+Providing functions for creating 3D color and point plots using the rgl package, and segmentation of sonar data.
+
+
+########## Version 1.1 ##########
+
+Minor bug fixes
+
+Moved development to GitHub
