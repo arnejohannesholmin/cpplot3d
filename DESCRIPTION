@@ -1,0 +1,24 @@
+Package: cpplot3d
+Title: 3D-plotting and segmentation of sonar data
+Version: 1.1
+Authors@R: c(
+  person("Arne Johannes", "Holmin", role = c("aut","cre"), email = "arnejh@imr.no"))
+Author: Arne Johannes Holmin [aut, cre],
+Maintainer: Arne Johannes Holmin <arnejh@imr.no>
+Description: This R package provides functions for creating 3D color and point plots using the rgl package, and segmentation of sonar data.
+Depends: R (>= 3.3.3)
+BugReports: https://github.com/arnejohannesholmin/cpplot3d/issues
+License: LGPL-3
+LazyData: true
+RoxygenNote: 6.0.1
+Imports:
+		akima,
+		fields,
+		gdata,
+		gsl,
+		pbapply,
+		rgl,
+		TSD,
+		SimradRaw,
+		sonR,
+		echoIBM
