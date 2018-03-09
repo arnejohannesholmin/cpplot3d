@@ -15,11 +15,11 @@ cplot2d.event(event = 1, t = 1, cruise = 2009116, dir.data = NULL,
   xaxis = c("time", "dist", "pings"), gap = median, gapthr = 10,
   tol = 0.1, heave = c("interp", "pixel", "ignore"), x0 = NULL,
   unit = NULL, date = c("unique", "all", "none"), nticksx = 10,
-  adds = NULL, origin = 1, clock = NULL, cex.clock = 1,
-  format.clock = "Ping: indt\\nyyyy-mm-dd\\nHH:MM:SS.FFF", digits.clock = 2,
-  col.clock = 4, tres = NULL, xres = NULL, zres = NULL, rres = NULL,
-  bres = NULL, funvbsc = c("median", "mean"), funt = c("median", "mean"),
-  cs = "g", ...)
+  lwdfact = 55, region = NULL, adds = NULL, origin = 1, clock = NULL,
+  cex.clock = 1, format.clock = "Ping: indt\\nyyyy-mm-dd\\nHH:MM:SS.FFF",
+  digits.clock = 2, col.clock = 4, tres = NULL, xres = NULL,
+  zres = NULL, rres = NULL, bres = NULL, funvbsc = c("median", "mean"),
+  funt = c("median", "mean"), cs = "g", ...)
 }
 \arguments{
 \item{event}{is the identifier of the event, either given as the number of the event, a string contained in the name of the event, or the path of the event directory.}

@@ -16,7 +16,7 @@
 #' @export
 #' @rdname cplot3d.TSD
 #'
-cplot3d.TSD<-function(
+cplot3d.TSD <- function(
 	# Main variable:
 	data, 
 	# Used in cplot3d.TSD():

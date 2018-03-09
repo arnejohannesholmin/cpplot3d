@@ -31,7 +31,7 @@
 #' @export
 #' @rdname acpplot3d.event
 #'
-acpplot3d.event<-function(
+acpplot3d.event <- function(
 	# (-16) Used in applot3d.event():
 	imgout=NULL, segout=FALSE, names_img="frame", fmt="png", info="", ndigits=NULL,  vessel.pos=FALSE, vessel.pos.col="blue", vessel.pos.size=0.3, force=FALSE, cores=1, windowRect=c(0, 49, 1680, 1028), seq_names=FALSE, cex.3d=3, 
 	# (-15) Specifying whether to use cplot3d or pplot3d:
@@ -126,69 +126,69 @@ acpplot3d.event<-function(
 	if(length(segpar)==0 && var[1] %in% c("sgsc","sgs0")){
 		warning("'segpar' not given, and was defaulted to 1")
 		segpar=1
-		}
+	}
 	# Get all the time points of the event and pick out the time points selected by fractional t:
 	if(length(t)==1 && t<1){
 		time = read.event(cruise=cruise, event=event, esnm=esnm, t="all", var=c("time", "bmmd"), merge=TRUE)
 		if(length(bmmd)>0 && length(time$bmmd)>0){
 			time = time$indt[time$bmmd %in% bmmd]
 			t = time[which(c(1, diff(floor(time*t)))==1)]
-			}
+		}
 		else{
 			t = time$indt[c(1, diff(floor(time$indt*t)))]
-			}
 		}
+	}
 	# Else pick out the time points specified by t:
 	else{
 		time = read.event(cruise=cruise, event=event, esnm=esnm, t=t, var=c("time", "bmmd"), merge=TRUE)
 		if(length(bmmd)>0 && length(time$bmmd)>0){
 			t = time$indt[time$bmmd %in% bmmd]
-			}
 		}
+	}
 	
 	time=read.event(cruise=cruise, event=event, esnm=esnm, t=t, var="time", merge=TRUE)
 	
 	# Error if time points in 't' were not found in the TSD files:
 	if(length(time$indt)<length(t) && t!="all"){
 		warning(paste("The following time steps are not present in event ",event,"\n:",paste(setdiff(t,time$indt), collapse=", "),sep=""))
-		}
+	}
 	# Keep integer:
 	if(is.integer(t)){
 		t = as.integer(time$indt)
-		}
+	}
 	else{
 		t = time$indt
-		}
+	}
 	t = locateNonVerticalBeamMode(t, event)
 	if(seq_names==TRUE){
 		t_dirname = seq_along(t)
-		}
+	}
 	else{
 		t_dirname = t
-		}
+	}
 	
 	# Initial settings:
 	if(identical(segout,FALSE)){
 		plot.seg=FALSE
-		}
+	}
 	if(!plot){
 		plot.seg=FALSE
 		imgout=FALSE
-		}
+	}
 	# Assure correct dimension of the parameters:
 	if(length(dim(par))<2){
 		par=matrix(par,nrow=length(t),ncol=3,byrow=TRUE)
-		}
+	}
 	if(length(dim(center))<2){
 		center=matrix(center,nrow=length(t),ncol=3,byrow=TRUE)
-		}
+	}
 	if(length(dim(angle))<length(t)){
 		angle=rep(angle,length.out=length(t))
-		}
+	}
 	# Error if the event is not found:
 	if(length(event)==0){
 		stop("'event' and 'cruise' need to be given")
-		}
+	}
 	ll=list(...)
 	# Read the vessel positions to add to the plots:
 	if(vessel.pos || any(is.na(xlim), is.na(ylim))){
@@ -202,16 +202,16 @@ acpplot3d.event<-function(
 			range$psyx = ylim
 			zlim = range$pszx
 		}
-		}
+	}
 	# Add info in the file and directory names if specified:
 	if(nchar(info)>0){
 		if(substr(info,1,1)!="_"){
 			info=paste("_",info,sep="")
-			}
+		}
 		if(substr(info,nchar(info),nchar(info))=="_"){
 			info=substr(info,1,nchar(info)-1)
-			}
 		}
+	}
 	
 	# 'imgout', the directory to which the images of regenerated points are written:
 	if(!identical(imgout,FALSE)){
@@ -221,23 +221,23 @@ acpplot3d.event<-function(
 			}
 			else{
 				imgout = file.path(dirname(read.event(cruise=cruise, event=event, esnm=esnm, dir.out=TRUE)), "cplot3d", paste0("br", if(length(breaks)==1) breaks else length(breaks), "wh", white, "_indt_", t_dirname[1] ,"__", tail(t_dirname,1), info), fmt)
-				}
 			}
+		}
 		if(!file.exists(as.character(imgout))){
 			suppressWarnings(dir.create(imgout,recursive=TRUE))
-			}
+		}
 		else if(any(basename(list.files(imgout)) %in% basename(names_img)) && !force){
 			answer=readline(paste("Previously generated images located in \"",imgout,"\". Overwrite (y/n) \n\n",sep=""))
 			if(answer!="y"){
 				imgout=FALSE
-				}
 			}
 		}
+	}
 	
 	# Create the names of the frames:
 	if(is.null(ndigits) || ndigits==0 || ndigits<nchar(max(t_dirname))){
 		ndigits=nchar(max(t_dirname))
-		}
+	}
 	tchar=sprintf(paste("%0",ndigits,"d",sep=""), t_dirname)
 	names_img=paste(imgout,"/",names_img,info,"_",tchar,".",fmt,sep="")
 	
@@ -249,10 +249,10 @@ acpplot3d.event<-function(
 		if(length(rgl.dev.list())==0){
 			rgl::open3d()
 			rgl::par3d(cex=cex.3d, windowRect=windowRect)
-			}
+		}
 		else{
 			rgl::rgl.clear()
-			}
+		}
 		
 		# Apply cpplot3d.event():
 		for(i in seq_along(var)){
@@ -272,7 +272,7 @@ acpplot3d.event<-function(
 				# (-9) Used in cpplot3d.bottom.TSD():
 				bottom=bottom, bottom.res=bottom.res, bottom.smooth=bottom.smooth, bottom.col=bottom.col, bottom.N=bottom.N, bottom.seg=bottom.seg, 
 				# (-8) Used for plotting with plot3d():
-				adds=adds, xlim=xlim, ylim=ylim, zlim=zlim, view=view, zoom=zoom, fov=fov, 
+				adds=adds, xlim=xlim, ylim=ylim, zlim=zlim, view=if(is.function(view)) view(t[thistind]) else view, zoom=zoom, fov=fov, 
 				# (-7) Used for plotting the school:
 				school=school, schoolcol=schoolcol, schoolsize=schoolsize, schoolsample=schoolsample, schoollen=schoollen, schoollwd=schoollwd, schooltype=schooltype, schoolnumt=schoolnumt, schoolcrop=schoolcrop, 
 				# (-6) Used for plotting the school (when schoolsample is a character = "obj") and the segmentation object:
@@ -289,13 +289,13 @@ acpplot3d.event<-function(
 				global.grid=global.grid, global.grid.lwd=global.grid.lwd, global.grid.lty=global.grid.lty, 
 				# (0) Passed on to add.sonar.grid(), pplot3d.TSD, and decorate3d():
 				top=FALSE, ...)
-			}
+		}
 			
 		# Run optional time step dependent function addfun():
 		if(is.function(list(...)[["addfun"]])){
 			do.call(list(...)[["addfun"]], list(t[thistind], ...))
 			#list(...)[["addfun"]](thistind, ...)
-			}
+		}
 		
 		# Add vessel position:
 		if(plot){
@@ -304,28 +304,28 @@ acpplot3d.event<-function(
 				par3d_bbox = rgl::par3d()$bbox
 				if(identical(cs.pos,"v")){
 					thisvessel.pos = cbind(vessel.pos$psxv[seq_len(thistind)]-vessel.pos$psxv[thistind], vessel.pos$psyv[seq_len(thistind)]-vessel.pos$psyv[thistind], par3d_bbox[6])
-					}
+				}
 				else{
 					thisvessel.pos = cbind(vessel.pos$psxv[seq_len(thistind)], vessel.pos$psyv[seq_len(thistind)], par3d_bbox[6])
-					}
+				}
 				valid.vessel.pos = (par3d_bbox[1]<=thisvessel.pos[,1] & thisvessel.pos[,1] <= par3d_bbox[2]) & (par3d_bbox[3]<=thisvessel.pos[,2] & thisvessel.pos[,2] <= par3d_bbox[4])
 				rgl::points3d(thisvessel.pos[valid.vessel.pos,,drop=FALSE], col=vessel.pos.col, size=vessel.pos.size)
-				}
+			}
 			# Save the plot to file:
 			if(!identical(imgout,FALSE)){
 				if(length(fmt)>0){
 					if(fmt=="png"){
 						rgl::rgl.snapshot(names_img[thistind],top=FALSE)
-						}
+					}
 					else{
 						rgl::rgl.postscript(names_img[thistind],fmt=fmt)
-						}
 					}
 				}
-			cat("Frame ",t[thistind]," (",thistind,"/",length(t),")\n",sep="")
-			thisout
 			}
+			cat("Frame ",t[thistind]," (",thistind,"/",length(t),")\n",sep="")
 		}
+		thisout
+	}
 		
 	
 
@@ -494,33 +494,33 @@ acpplot3d.event<-function(
 			# Create the directory of the segmentation data if not existing
 			if(strff("p",cpplot3d_type)){
 				segoutdir = file.path(dirname(read.event(cruise=cruise, event=event, esnm=esnm, dir.out=TRUE)), "sv2pos", paste("acca_",format(acca,scientific=TRUE),"_indt_",t_dirname[1],"__",tail(t_dirname,1),info,sep=""), "tsd")
-				}
+			}
 			else{
 				segoutdir = file.path(dirname(read.event(cruise=cruise, event=event, esnm=esnm, dir.out=TRUE)), "cplot3d", paste("br",if(length(breaks)==1) breaks else length(breaks),"wh",white,"_indt_",t_dirname[1],"__",tail(t_dirname,1),info,sep=""), "tsd")
-				}
+			}
 			# Create the directory if non-existent:
 			if(!file.exists(as.character(segoutdir))){
 				suppressWarnings(dir.create(segoutdir,recursive=TRUE))
-				}
+			}
 			
 			# Define the name of the output file for the segmentation data:
 			if(isTRUE(segout)){
 				if(strff("p",cpplot3d_type)){
 					segout = file.path(segoutdir, paste("acca_",format(acca,scientific=TRUE),"_indt_",t_dirname[1],"__",tail(t_dirname,1),info,".tsd",sep=""))
-					}
+				}
 				else{
 					segout = file.path(segoutdir, paste("br",if(length(breaks)==1) breaks else length(breaks),"wh",white,"_indt_",t_dirname[1],"__",tail(t_dirname,1),info,".tsd",sep=""))
-					}
 				}
+			}
 			
 			# Write the data:
 			write.TSD(x=out[labl.TSD(c("applotoutput", "v"), list.out=FALSE)], con=segout, keep.null=TRUE, append=FALSE, numt=length(t))
-			}
-		invisible(out)
 		}
+		invisible(out)
+	}
 	else{
 		invisible(out)
-		}
-	##################################################
-	##################################################
 	}
+	##################################################
+	##################################################
+}

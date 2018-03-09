@@ -64,85 +64,85 @@ rseg.event_block <- function(t_seq, t, utim, noise, noisethr, thr, segfilesdir, 
 	##### Preparation #####
 	# Estimate the background (noise), median filtering over the specified number of pings (2*add + 1, defaulted to 5), and also for only one ping, used when subtracting the background in the biomass estimate:
 	# If 'thr' is given, indicating a fixed threshold, the noise is input as NA (see rseg.event()), saving time and setting the noise as missing:
-	noiseANDvbsc = rseg.estimate.noise(event, t_seq=t_seq, add=add, t=t, kern=kern, type=type, noisesmooth=noisesmooth, noise=noise, ind=ind)
+	noiseANDvbsc <- rseg.estimate.noise(event, t_seq=t_seq, add=add, t=t, kern=kern, type=type, noisesmooth=noisesmooth, noise=noise, ind=ind)
 	# The fixed threshold gan be given as a vector of one element per range or a list of one element per beam (both are expanded so that the last element is repeated with a warning). Here 'nbeams' and 'nranges' are defined for simplicity and not used futher in the function:
 	if(length(thr)){
-		nbeams = ncol(noiseANDvbsc$vbscmed)
-		nranges = nrow(noiseANDvbsc$vbscmed)
+		nbeams <- ncol(noiseANDvbsc$vbscmed)
+		nranges <- nrow(noiseANDvbsc$vbscmed)
 		if(is.list(thr)){
-			thr = unlist(thr)
+			thr <- unlist(thr)
 			if(length(thr)<nbeams){
 				warning(paste0("the last threshold ", tail(thr,1), " repeated for beam(s) ", prettyIntegers(seq(length(thr)+1, nbeams))))
-				thr = c(thr, rep(tail(thr,1), nbeams-length(thr)))
+				thr <- c(thr, rep(tail(thr,1), nbeams-length(thr)))
 				}
-			thr = matrix(thr, nrow=nranges, ncol=nbeams, byrow=TRUE)
+			thr <- matrix(thr, nrow=nranges, ncol=nbeams, byrow=TRUE)
 			}
 		else if(length(thr)>1){
 			if(length(thr)<nranges){
 				warning(paste0("the last threshold ", tail(thr,1), " repeated for range(s) ", prettyIntegers(seq(length(thr)+1, nranges))))
-				thr = c(thr, rep(tail(thr,1), nranges-length(thr)))
+				thr <- c(thr, rep(tail(thr,1), nranges-length(thr)))
 				}
-			thr = matrix(thr, nrow=nranges, ncol=nbeams)
+			thr <- matrix(thr, nrow=nranges, ncol=nbeams)
 			}
 		}
 	
 	# Get the acoustic data and voxel data of the ping t[t_seq]. Here we read all time steps and use subset_TSD() to select single time steps below:
-	data = sonR::read.event(event=event, adds=list(nlmp=nlmp), var=c("vbsc", "volx", "harx", "psxx", "psyx", "pszx"), t=t[t_seq], kern=kern, allow.old=TRUE, try.runmed=TRUE, esnm=esnm, ...)
-	vessel = sonR::read.event(event=event, adds=list(nlmp=nlmp), var=c("psxv", "psyv", "pszv"), t=t[t_seq], kern=kern, allow.old=TRUE, try.runmed=TRUE, esnm=esnm, ...)
+	data <- sonR::read.event(event=event, adds=list(nlmp=nlmp), var=c("vbsc", "volx", "harx", "psxx", "psyx", "pszx"), t=t[t_seq], kern=kern, allow.old=TRUE, try.runmed=TRUE, esnm=esnm, ...)
+	vessel <- sonR::read.event(event=event, adds=list(nlmp=nlmp), var=c("psxv", "psyv", "pszv"), t=t[t_seq], kern=kern, allow.old=TRUE, try.runmed=TRUE, esnm=esnm, ...)
 	
 	# Get the dimensions of the data:
-	dimvbsc = dim(data$vbsc)[1:2]
+	dimvbsc <- dim(data$vbsc)[1:2]
 	
 	# Get the voxel indices, and discard the beam ends using 'beamend':
-	valid = TSD::ind.expand(ind, dimvbsc)
-	valid[[1]] = setdiff(valid[[1]], tail(seq_len(dimvbsc[1]), beamend))
-	valid = TSD::arr.ind2ind(valid, dimvbsc)
+	valid <- TSD::ind.expand(ind, dimvbsc)
+	valid[[1]] <- setdiff(valid[[1]], tail(seq_len(dimvbsc[1]), beamend))
+	valid <- TSD::arr.ind2ind(valid, dimvbsc)
 	
 	
 	# Run through the time steps in the block:
-	file_thist_seq = t_seq[1]
-	for(thist_seq in t_seq){
+	file_thist <- t_seq[1]
+	for(thist in t_seq){
 		# Extract data for the current time step. This is sloppy programming, but it serves the need of reading data in blocks for higher speed:
-		thist_seqind = which(thist_seq==t_seq)
-		suppressWarnings(d <- c(subset_TSD(data, list(NULL, NULL, thist_seqind)), subset_TSD(vessel, list(thist_seqind))))
-		vbscmed = noiseANDvbsc$vbscmed[,,thist_seqind]
+		thistind <- which(thist==t_seq)
+		suppressWarnings(d <- c(subset_TSD(data, list(NULL, NULL, thistind)), subset_TSD(vessel, list(thistind))))
+		vbscmed <- noiseANDvbsc$vbscmed[,,thistind]
 		if(length(noiseANDvbsc$Xsb1)){
-			Xsb1 = noiseANDvbsc$Xsb1[,thist_seqind]
-			Xsbg = noiseANDvbsc$Xsbg[,thist_seqind]
+			Xsb1 <- noiseANDvbsc$Xsb1[,thistind]
+			Xsbg <- noiseANDvbsc$Xsbg[,thistind]
 			}
 		else{
-			Xsb1 = NULL
-			Xsbg = NULL
+			Xsb1 <- NULL
+			Xsbg <- NULL
 			}
 			
 		# Extract 'cmpred' and ellipsoid:
 		if(length(cmpred)>3){
-			if(length(cmpred)<3*t[thist_seq]){
-				matrix(rep(cmpred, length=3*t[thist_seq]), byrow=TRUE, ncol=3, nrow=t[thist_seq])
+			if(length(cmpred)<3*t[thist]){
+				matrix(rep(cmpred, length=3*t[thist]), byrow=TRUE, ncol=3, nrow=t[thist])
 				}
-			cmpred = cmpred[t[thist_seq],]
+			cmpred <- cmpred[t[thist],]
 			}
 		if(length(ellipsoid)>3){
-			if(length(ellipsoid)<3*t[thist_seq]){
-				matrix(rep(ellipsoid, length=3*t[thist_seq]), byrow=TRUE, ncol=3, nrow=t[thist_seq])
+			if(length(ellipsoid)<3*t[thist]){
+				matrix(rep(ellipsoid, length=3*t[thist]), byrow=TRUE, ncol=3, nrow=t[thist])
 				}
-			ellipsoid = ellipsoid[t[thist_seq],]
+			ellipsoid <- ellipsoid[t[thist],]
 			}
 		
 		# Apply the subset defined by center (cmpred) and dimensions (ellipsoid):
-		subset = rseg.event_subsetfun(d, cmpred, ellipsoid)
-		valid = intersect(valid, if(is.logical(subset)) which(subset) else subset)
+		subset <- rseg.event_subsetfun(d, cmpred, ellipsoid)
+		valid <- intersect(valid, if(is.logical(subset)) which(subset) else subset)
 		if(is.list(avoid)){
 			if(length(avoid$vessel)>0){
-				vesselt = seq(thist_seq-avoid$numt+1, thist_seq)
-				vesselt = vesselt[vesselt>0]
-				vessel = sonR::read.event(event=event, c("psxv", "psyv"), t=t[vesselt])
-				thisavoid = lapply(seq_along(vessel$psxv), function(x) valid[which(sqrt((d$psxx[valid]-vessel$psxv[x])^2 + (d$psyx[valid]-vessel$psyv[x])^2)<avoid$dist)])
-				valid = setdiff(valid, unique(unlist(thisavoid)))
+				vesselt <- seq(thist-avoid$numt+1, thist)
+				vesselt <- vesselt[vesselt>0]
+				vessel <- sonR::read.event(event=event, c("psxv", "psyv"), t=t[vesselt])
+				thisavoid <- lapply(seq_along(vessel$psxv), function(x) valid[which(sqrt((d$psxx[valid]-vessel$psxv[x])^2 + (d$psyx[valid]-vessel$psyv[x])^2)<avoid$dist)])
+				valid <- setdiff(valid, unique(unlist(thisavoid)))
 				}
 			if(length(avoid$points)>0){
-				thisavoid = lapply(seq_along(avoid$points[,1]), function(x) valid[which(sqrt((d$psxx[valid]-avoid$points[x,1])^2 + (d$psyx[valid]-avoid$points[x,2])^2)<avoid$dist)])
-				valid = setdiff(valid, unique(unlist(thisavoid)))
+				thisavoid <- lapply(seq_along(avoid$points[,1]), function(x) valid[which(sqrt((d$psxx[valid]-avoid$points[x,1])^2 + (d$psyx[valid]-avoid$points[x,2])^2)<avoid$dist)])
+				valid <- setdiff(valid, unique(unlist(thisavoid)))
 				}
 			if(length(valid)==0){
 				warning("All data discarded by 'avoid', which should only be used for sonars.")
@@ -150,43 +150,46 @@ rseg.event_block <- function(t_seq, t, utim, noise, noisethr, thr, segfilesdir, 
 			}
 		
 		# Apply the 'range':
-		valid = sonR::subset_TSD(d, subset=valid, range=range, ind.out=TRUE)$subs$psxx
+		valid <- sonR::subset_TSD(d, subset=valid, range=range, ind.out=TRUE)$subs$psxx
 		
 	
 		##### Execution and output #####
 		# Return the last segmentation output:
-		lastout=list()
+		lastout <- list()
 		# If nseg2==0 do only the noise-up segmentations:
 		if(nseg2==0){	
 			# Get the threshold from the noise:
 			if(length(thr)>0){
-				thisthr = thr
+				thisthr <- thr
 				}
 			else{
-				thisthr = Xsbg * 10^(noisethr/10)
+				thisthr <- Xsbg * 10^(noisethr/10)
 				}
 			# Apply the threshold:
-			thisseg = which(vbscmed > thisthr)
+			thisseg <- which(vbscmed > thisthr)
 			
 			# Discard invalid voxels:
-			thisseg = intersect(thisseg, valid)
+			thisseg <- intersect(thisseg, valid)
 			
 			# Write the segmentation data:
-			lastout = rseg.event_oneping_write(d=d, thisseg=thisseg, thist_seq=thist_seq, t=t, utim=utim, valid=valid, subset=subset, dimvbsc=dimvbsc, segfilesdir=segfilesdir, sfnr=sfnr, dBan=noisethr, dBb1=NaN, dBb2=NaN, dBb3=NaN, dBb4=NaN, dBbs=NaN, Xsbg=Xsbg, Xsb1=Xsb1, thisthr=thisthr, thersholdFromSchool=NaN, Xcsz=Xcsz[t[thist_seq]], save.trh=save.trh, save.data=save.data, save.ind=save.ind, kern=kern, wt=wt, type=type, cmpred=cmpred, ellipsoid=ellipsoid, file_thist_seq, reserve=length(t_seq)-1)
+			lastout <- rseg.event_oneping_write(d=d, thisseg=thisseg, thist=thist, t=t, utim=utim, valid=valid, subset=subset, dimvbsc=dimvbsc, segfilesdir=segfilesdir, sfnr=sfnr, dBan=noisethr, dBb1=NaN, dBb2=NaN, dBb3=NaN, dBb4=NaN, dBbs=NaN, Xsbg=Xsbg, Xsb1=Xsb1, thisthr=thisthr, thersholdFromSchool=NaN, Xcsz=Xcsz[t[thist]], save.trh=save.trh, save.data=save.data, save.ind=save.ind, kern=kern, wt=wt, type=type, cmpred=cmpred, ellipsoid=ellipsoid, file_thist, reserve=length(t_seq)-1)
 			}
 		else{
 			# Get the threshold from the noise:
-			thersholdFromNoise = Xsbg * 10^(noisethr/10)
-			# Get the total threshold:
-			thisthr = pmax(thersholdFromNoise, thersholdFromSchool[t[thist_seq]])
-			# Apply the threshold:
-			thisseg = which(vbscmed > thisthr)
-			# Discard invalid voxels:
-			thisseg = intersect(thisseg, valid)
-			lastout = rseg.event_oneping_write(d=d, thisseg=thisseg, thist_seq=thist_seq, t=t, utim=utim, valid=valid, subset=subset, dimvbsc=dimvbsc, segfilesdir=segfilesdir, sfnr=sfnr, dBan=noisethr, dBb1=dBb1, dBb2=dBb2, dBb3=dBb3, dBb4=dBb4, dBbs=dBbs[t[thist_seq]], Xsbg=Xsbg, Xsb1=Xsb1, thisthr=thisthr, thersholdFromSchool=thersholdFromSchool[t[thist_seq]], Xcsz=Xcsz[t[thist_seq]], save.trh=save.trh, save.data=save.data, save.ind=save.ind, kern=kern, wt=wt, type=type, cmpred=cmpred, ellipsoid=ellipsoid, file_thist_seq, reserve=length(t_seq)-1)
+			thersholdFromNoise <- Xsbg * 10^(noisethr/10)
+			
+			for(i in seq_len(ncol(thersholdFromSchool))){
+				# Get the total threshold:
+				thisthr <- pmax(thersholdFromNoise, thersholdFromSchool[t[thist], i])
+				# Apply the threshold:
+				thisseg <- which(vbscmed > thisthr)
+				# Discard invalid voxels:
+				thisseg <- intersect(thisseg, valid)
+				lastout <- rseg.event_oneping_write(d=d, thisseg=thisseg, thist=thist, t=t, utim=utim, valid=valid, subset=subset, dimvbsc=dimvbsc, segfilesdir=segfilesdir[i], sfnr=sfnr, dBan=noisethr, dBb1=dBb1[i], dBb2=dBb2[i], dBb3=dBb3[i], dBb4=dBb4[i], dBbs=dBbs[t[thist], i], Xsbg=Xsbg, Xsb1=Xsb1, thisthr=thisthr, thersholdFromSchool=thersholdFromSchool[t[thist], i], Xcsz=Xcsz[t[thist]], save.trh=save.trh, save.data=save.data, save.ind=save.ind, kern=kern, wt=wt, type=type, cmpred=cmpred, ellipsoid=ellipsoid, file_thist, reserve=length(t_seq)-1)
 			}
 		}
+	}
 	lastout
 	##################################################
 	##################################################
-	}
+}

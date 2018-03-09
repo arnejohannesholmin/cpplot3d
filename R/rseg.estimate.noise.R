@@ -56,7 +56,7 @@ rseg.estimate.noise <- function(event, t_seq=1, add=2, t=1, kern=21L, type=2, no
 	# Estimate the noise:
 	vbscmed = zeros(dimvbsc, length(t_seq))
 	for(i in seq_along(readt)){
-		vbscmed[,,i] = median3d(d$vbsc[,,readt_invbsc[[i]], drop.out=FALSE], 3) # [J, I]
+		vbscmed[,,i] = median3d(d$vbsc[,,readt_invbsc[[i]], drop=FALSE], 3) # [J, I]
 		}
 	
 	if(length(noise)==0){

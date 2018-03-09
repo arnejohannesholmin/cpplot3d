@@ -4,7 +4,7 @@
 #'
 #' @param d  is the list of data including segmentation and acoustic data.
 #' @param thisseg  is the segmentatino mask.
-#' @param thist_seq  is the time step index. One of 1:t.
+#' @param thist  is the time step index. One of 1:t.
 #' @param t  is all the time steps to be segmented.
 #' @param utim  is a a vector of UNIX time points corresponding to 't'. 
 #' @param valid  is indices of the valid region of the sonar volume.
@@ -25,7 +25,7 @@
 #' @param type  is the function to use across beams (one of "mean" and "median", where "mean" is used in PROFUS up to 2014, while "median" is more robust to the valus of the school).
 #' @param cmpred  is a three column matrix holding the centers of mass of the ellipsoid outside which no samples are discarded from the segmentation mask. This matrix must have one row per time step, starting at the first time step.
 #' @param ellipsoid  is an optional vector of up to three elements specifying the semi axes of an ellipsoid centered at the center of mass of a user selected region, outside which voxels will not be included in the segmentation. The ellispoid can be set to move with the center of mass of the segmented voxels.
-#' @param file_thist_seq  is the time index in the block. If this is equal to 'thist_seq', a new file will be written. Otherwise data will be appended to the file with name given by 'file_thist_seq'.
+#' @param file_thist  is the time index in the block. If this is equal to 'thist', a new file will be written. Otherwise data will be appended to the file with name given by 'file_thist'.
 #' @param reserve  is used in write.TSD() to reserve time steps for the whole block of time steps.
 #'
 #' @return
@@ -40,7 +40,7 @@
 #' @export
 #' @rdname rseg.event_oneping_write
 #'
-rseg.event_oneping_write<-function(d, thisseg, thist_seq, t, utim, valid, subset, dimvbsc, segfilesdir, sfnr, dBan, dBb1, dBb2, dBb3, dBb4, dBbs, Xsbg, Xsb1, thisthr, thersholdFromSchool, Xcsz, save.trh, save.data, save.ind, kern, wt, type, cmpred, ellipsoid, file_thist_seq, reserve){
+rseg.event_oneping_write<-function(d, thisseg, thist, t, utim, valid, subset, dimvbsc, segfilesdir, sfnr, dBan, dBb1, dBb2, dBb3, dBb4, dBbs, Xsbg, Xsb1, thisthr, thersholdFromSchool, Xcsz, save.trh, save.data, save.ind, kern, wt, type, cmpred, ellipsoid, file_thist, reserve){
 	
 	############ AUTHOR(S): ############
 	# Arne Johannes Holmin
@@ -55,7 +55,7 @@ rseg.event_oneping_write<-function(d, thisseg, thist_seq, t, utim, valid, subset
 	############ VARIABLES: ############
 	# ---d--- is the list of data including segmentation and acoustic data.
 	# ---thisseg--- is the segmentatino mask.
-	# ---thist_seq--- is the time step index. One of 1:t.
+	# ---thist--- is the time step index. One of 1:t.
 	# ---t--- is the time steps to be segmented.
 	# ---utim--- is a a vector of UNIX time points corresponding to 't'. 
 	# ---valid--- is indices of the valid region of the sonar volume.
@@ -267,7 +267,7 @@ rseg.event_oneping_write<-function(d, thisseg, thist_seq, t, utim, valid, subset
 		D$Xelz = ellipsoid[3]
 		}
 	# Create simple file names, since the files are merged at the end:
-	file = file.path(segfilesdir, paste(basename(segfilesdir),"_",zeropad(t[file_thist_seq], nchar(max(t))),".tsd",sep=""))
+	file = file.path(segfilesdir, paste0(basename(segfilesdir), "_", zeropad(t[file_thist], nchar(max(t))), ".tsd"))
 	
 	
 	##### Execution and output #####
@@ -287,7 +287,7 @@ rseg.event_oneping_write<-function(d, thisseg, thist_seq, t, utim, valid, subset
 		}
 	# The output list:
 	out = c(
-		list(utim=utim[t[thist_seq]], indt=t[thist_seq], sgsc=thisseg), 
+		list(utim=utim[t[thist]], indt=t[thist], sgsc=thisseg), 
 		seg,
 		ind,
 		D, 
@@ -295,7 +295,7 @@ rseg.event_oneping_write<-function(d, thisseg, thist_seq, t, utim, valid, subset
 		thisthr)
 	
 	# Write the data:
-	write.TSD(out, file, numt=1, keep.null=TRUE, header=list(dtyp=list(sgsc="long")), append=file_thist_seq!=thist_seq, reserve=reserve)
+	write.TSD(out, file, numt=1, keep.null=TRUE, header=list(dtyp=list(sgsc="long")), append=file_thist!=thist, reserve=reserve)
 	out
 	##################################################
 	##################################################

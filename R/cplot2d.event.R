@@ -53,7 +53,7 @@ cplot2d.event<-function(
 	# Used in cplot2d.plot.color.bar():
 	white=0, log=TRUE, endcol=c("white", ""), 
 	# Used in pplot2d.TSD() and cplot2d.TSD():
-	esnm="MS70", var=c("vbsc","sgsc","pr0s","sgs0","sgsE","sgsi","sgsI","psis","tlns"), ind=list(), range=list(), subset=NULL, plot=TRUE, cs.xyzlim="g", xlim=NULL, ylim=NULL, zlim=NULL, tlim=NULL, up=FALSE, freq=1, wb=1, rmar=5, xaxis=c("time", "dist", "pings"), gap=median, gapthr=10, tol=0.1, heave=c("interp", "pixel", "ignore"), x0=NULL, unit=NULL, date=c("unique", "all", "none"), nticksx=10, 
+	esnm="MS70", var=c("vbsc","sgsc","pr0s","sgs0","sgsE","sgsi","sgsI","psis","tlns"), ind=list(), range=list(), subset=NULL, plot=TRUE, cs.xyzlim="g", xlim=NULL, ylim=NULL, zlim=NULL, tlim=NULL, up=FALSE, freq=1, wb=1, rmar=5, xaxis=c("time", "dist", "pings"), gap=median, gapthr=10, tol=0.1, heave=c("interp", "pixel", "ignore"), x0=NULL, unit=NULL, date=c("unique", "all", "none"), nticksx=10, lwdfact=55, region=NULL, 
 	# Used for plotting with plot2d():
 	adds=NULL, origin=1, 
 	# Used when plotting date and time:
@@ -91,7 +91,7 @@ cplot2d.event<-function(
 		# Used in cplot3d.plot.color.bar():
 		white=white, log=log, endcol=endcol, 
 		# Used in pplot2d.TSD() and cplot2d.TSD():
-		esnm=esnm, var=var, ind=ind, range=range, subset=subset, plot=plot, cs.xyzlim=cs.xyzlim, xlim=xlim, ylim=ylim, zlim=zlim, tlim=tlim, up=up, freq=freq, wb=wb, rmar=rmar, xaxis=xaxis, gap=gap, gapthr=gapthr, tol=tol, heave=heave, x0=x0, unit=unit, date=date, nticksx=nticksx, 
+		esnm=esnm, var=var, ind=ind, range=range, subset=subset, plot=plot, cs.xyzlim=cs.xyzlim, xlim=xlim, ylim=ylim, zlim=zlim, tlim=tlim, up=up, freq=freq, wb=wb, rmar=rmar, xaxis=xaxis, gap=gap, gapthr=gapthr, tol=tol, heave=heave, x0=x0, unit=unit, date=date, nticksx=nticksx, lwdfact=lwdfact, region=region, 
 		# Used for plotting with plot3d():
 		adds=adds, origin=origin, 
 		# Used when plotting date and time:

@@ -579,7 +579,7 @@ cpplot3d.event<-function(
 		
 		
 	########## Output ##########
-	out <- lapply(out,drop)
+	out <- lapply(out, drop)
 	if(length(out$plotted)){
 		out$plotted <- sum(out$plotted)
 	}

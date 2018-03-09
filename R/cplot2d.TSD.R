@@ -35,7 +35,7 @@ cplot2d.TSD<-function(
 	# Main variable:
 	data, t="all", 
 	# Used in cplot2d.TSD():
-	breaks=40, col="combined", colpar=list(start=0,end=0.8,flip=TRUE), null.value=NA, beamstypes=1, grid=TRUE, adds=NULL, xlim=NULL, ylim=NULL, zlim=NULL, tlim=NULL, up=FALSE,  freq=1, wb=1, rmar=5, xaxis=c("time", "dist", "pings", "compr", "sparse"), gap=median, gapthr=10, tol=0.1, heave=c("interp", "pixel", "ignore"), x0=NULL, unit=NULL, date=c("unique", "all", "none"), nticksx=10, 
+	breaks=40, col="combined", colpar=list(start=0,end=0.8,flip=TRUE), null.value=NA, beamstypes=1, grid=TRUE, adds=NULL, xlim=NULL, ylim=NULL, zlim=NULL, tlim=NULL, up=FALSE,  freq=1, wb=1, rmar=5, xaxis=c("time", "dist", "pings", "compr", "sparse"), gap=median, gapthr=10, tol=0.1, heave=c("interp", "pixel", "ignore"), x0=NULL, unit=NULL, date=c("unique", "all", "none"), nticksx=10, lwdfact=55, region=NULL, cs.pos="v", 
 	# Used in cplot3d.plot.color.bar():
 	white=0, log=TRUE, endcol=c("white", ""), 
 	# Used in subset_TSD and elsewhere:
@@ -51,7 +51,6 @@ cplot2d.TSD<-function(
 	# English
 	############### LOG: ###############
 	# Start: 2014-08-26 - Clean version.
-	
 	
 	##################################################
 	##################################################
@@ -84,7 +83,7 @@ cplot2d.TSD<-function(
 		if(useAbs){
 			out <- mean(abs(x - ref) / abs(ref) < tol) > gridthr
 			if(!out){
-				cat("Maximum absolue fractional deviation from the ", deparse(substitute(pos)), " of the diffs of the variable on the x axis: ", max(abs(x - ref) / abs(ref)), "\n")
+				cat("Maximum absolue fractional deviation from the ", deparse(substitute(pos)), " of the diffs of the variable on the x axis: ", max(abs(x - ref) / abs(ref)), ". The current value of 'tol' is ", tol, ".\n")
 			}
 		}
 		else{
@@ -370,7 +369,7 @@ cplot2d.TSD<-function(
 		imvbsc <- findInterval(data$vbsc, breaks, rightmost.closed=TRUE)
 		imvbsc <- colvec[imvbsc]
 		dim(imvbsc) <- dim(data$vbsc)
-		
+	
 		# Flip the data due to how images are plotted with grid.raster():
 		imvbsc <- imvbsc[seq(nrow(imvbsc), 1),]
 		
@@ -436,6 +435,21 @@ cplot2d.TSD<-function(
 		data[names(adds)] <- adds
 		}
 	
+	# Accept vectors for the limits:
+	if(length(xlim)>1){
+		xlim <- range(xlim, na.rm=TRUE)
+	} 
+	if(length(ylim)>1){
+		ylim <- range(ylim, na.rm=TRUE)
+	} 
+	if(length(zlim)>1){
+		zlim <- range(zlim, na.rm=TRUE)
+	} 
+	if(length(tlim)>1){
+		tlim <- range(tlim, na.rm=TRUE)
+	} 
+	
+	
 	
 	########## Execution ##########
 	##### Preparations for plotting: #####
@@ -450,6 +464,23 @@ cplot2d.TSD<-function(
 	
 	# Subset the data:
 	data <- subset_TSD(data, ind=ind, range=range, subset=subset, ind.out=TRUE, drop=FALSE, insert.NA=TRUE)
+	
+	tbsS <- NA
+	tvlS <- NA
+	mvbS <- NA
+	
+	if(length(region)){
+		# Extract the total backscatter
+		##### IN THE FUTURE THIS SHOULD BE CHANGED TO EXTRACTING A SUMMARY OF THE REGION BY CREATING A FUNCTION TO BE USED BOTH HERE AND IN rseg.event():
+		if(identical(region$fun, "circle")){
+			distx <- data$psxx - region$origin[1]
+			disty <- data$psyx - region$origin[2]
+			subs <- which(distx^2 + disty^2 <= region$r^2)
+			tbsS <- sum(data$vbsc[subs] * data$volx[subs])
+			tvlS <- sum(data$volx[subs])
+			mvbS <- tbsS / tvlS
+		}
+	}
 	
 	# Add a column of NAs to allow for a subset of 
 	# Linearize:
@@ -535,8 +566,14 @@ cplot2d.TSD<-function(
 	pszx=NULL
 	
 	if(strff("e", plot)){
-		# Plot a onli sonar image:
-		if(is.sonar(data)){
+		# Plot a only sonar image:
+		if(is.sonar(data, fishery=TRUE)){
+			
+			# Set default ylab:
+			xlabDefault <- "x (m)"
+			ylabDefault <- "y (m)"
+			mainDefault <- ""
+			
 			dimvbsc <- dim(data$vbsc)
 			if(!is.na(dim(data$vbsc)[3])){
 				warning("Only the first ping plotted")
@@ -567,22 +604,49 @@ cplot2d.TSD<-function(
 			xy1 <- rotate3D(cbind(c(x1), c(y1), 0), by="z", ang=angdiffhalf)
 			x1 <- xy1[,1]
 			y1 <- xy1[,2]
+			
+			# Add vessel position if requested:
+			if(strff("g", cs.pos)){
+				x0 <- x0 + data$psxv[1]
+				x1 <- x1 + data$psxv[1]
+				y0 <- y0 + data$psyv[1]
+				y1 <- y1 + data$psyv[1]
+			}
 		
 			atcol <- findInterval(data$vbsc, breaks, all.inside=TRUE)
 
 			if(length(xlim)==0){
 				xlim <- range(c(x0, x1), na.rm=TRUE)
-				}
+			}
 			if(length(xlim)>0 && strff("t", xaxis[1])){
 				warning("Specifying 'xlim' not effective when time is plotted in the x axis. Use tlim instead.")
-				}
+			}
 			if(length(ylim)==0){
 				ylim <- range(c(y0, y1), na.rm=TRUE)
-				}
-			plot(NULL, xlim=xlim, ylim=ylim)
-			lwd <- max(mean(par("din")) / dimvbsc[1] * 50, 1)
-			segments(x0=x0, y0=y0, x1=x1, y1=y1, col=colvec[atcol], lwd=lwd, ...)
-			#segments(x0=x0, y0=y0, x1=x1, y1=y1, col=colvec[atcol])
+			}
+				
+			lwd <- max(mean(par("din")) / dimvbsc[1] * lwdfact, 1)
+			
+			
+			image_polar <- function(x0, y0, x1, y1, xlim=NULL, ylim=NULL, col=1, lwd=1, ...){
+				plot(NULL, xlim=xlim, ylim=ylim, ...)
+				segments(x0=x0, y0=y0, x1=x1, y1=y1, col=colvec[atcol], lwd=lwd)
+			}
+			
+			do.callUnique(image_polar, args=list(x0=x0, y0=y0, x1=x1, y1=y1, col=colvec[atcol], lwd=lwd, xlab=xlabDefault, ylab=ylabDefault, xlim=xlim, ylim=ylim, main=mainDefault), ...)
+			#
+			#
+			#
+			#
+			#	
+			#	
+			#	
+			#plot(NULL, xlim=xlim, ylim=ylim)
+			#lwd <- max(mean(par("din")) / dimvbsc[1] * lwdfact, 1)
+			##segments(x0=x0, y0=y0, x1=x1, y1=y1, col=colvec[atcol], lwd=lwd, ...)
+			##segments(x0=x0, y0=y0, x1=x1, y1=y1, col=colvec[atcol])
+			#
+			#do.callUnique(segments, args=list(x0=x0, y0=y0, x1=x1, y1=y1, col=colvec[atcol], lwd=lwd, xlab=xlabDefault, ylab=ylabDefault, xlim=xlim, ylim=zlim, main=mainDefault), ...)
 		}
 		# Plot an echosounder echogram:
 		else{
@@ -606,23 +670,31 @@ cplot2d.TSD<-function(
 					warning("Invalid frequency. First frequency chosen")
 					}
 				}
-			# Select according to the frequency:
-			if(length(data$sint)==nfreq){
-				data$sint <- data$sint[freq]
-				}
-			if(length(data$asps)==nfreq){
-				data$asps <- data$asps[freq]
-				}
-			if(length(data$freq)==nfreq){
-				data$freq <- data$freq[freq]
-				}
-			if(length(dim(data$vbsc))==3){
-				data$vbsc <- data$vbsc[,freq,]
-				}
+			### # Select according to the frequency:
+			### if(length(data$sint)==nfreq){
+			### 	data$sint <- data$sint[freq]
+			### 	}
+			### if(length(data$asps)==nfreq){
+			### 	data$asps <- data$asps[freq]
+			### 	}
+			### if(length(data$freq)==nfreq){
+			### 	data$freq <- data$freq[freq]
+			### 	}
+			### if(length(dim(data$vbsc))==3){
+			### 	data$vbsc <- data$vbsc[,freq,]
+			### 	}
+			
+			data <- extractBeams(data, freq, drop=FALSE)
+			# Drop the dimension of the vbsc, since we are plotting an echogram:
+			data$vbsc <- drop(data$vbsc)
+			
+			# This is used in the event that compr.TSD() is run below:
+			data$numb <- ones(ncol(data$vbsc))
 			
 			# Define beams:
-			data$lenb <- nrow(data$vbsc)
 			lent <- ncol(data$vbsc)
+			data$lenb <- replace(data$lenb, values=nrow(data$vbsc))
+			#data$lenb <- array(nrow(data$vbsc), dim=dim(data$lenb))
 			#dz <- soundbeam_range(data, pos="res")
 			#dz <- data$sint * data$asps / 2
 			
@@ -643,13 +715,17 @@ cplot2d.TSD<-function(
 			#		}
 			#	}
 			if(!all(data$psze[1]==data$psze)){
-				if(length(data$rres)==0){
-					# Get range resolution:
-					data$rres <- data$asps[1] * data$sint[1]/2
-					}
-				suppressWarnings(data <- compr.TSD(data, zres=data$rres[1]))
-				}
+				warning(paste0("Transducer depth 'psze' is not identical thourghout the data (", paste(unique(data$psze), collapse=", "), ")"))
 				
+				# Before there was made an attempt to compress for the case when the transducer position 'psze' changes throughout a data set, but this had no effect since the first transducer positions is used anyway in soundbeam.TSD(). So from 2018-03-09 and onwards we consider such events to be errors, and keep the first value of psze. The user is referred to the 'adds' parameter to override this value.
+				### if(length(data$rres)==0){
+				### 	# Get range resolution:
+				### 	data$rres <- data$asps[1] * data$sint[1]/2
+				### }
+				### # Added drop=TRUE to preserve the 2-D of the vbsc: 
+				### suppressWarnings(data <- compr.TSD(data, zres=data$rres[1], drop=TRUE))
+			}
+			
 			# If the resolution of the vessel log is too low, there may be consecutive identical values. Thus add a small value to 'psxx' at those values which are duplicated:
 			if( length(data$sadv) && any(strff(c("x", "d"), xaxis[1])) ){
 				#data$sadv <- addToEqual(data$sadv)
@@ -680,9 +756,14 @@ cplot2d.TSD<-function(
 			# If heave==TRUE, apply heave to the z-positions so that the acoustic data are shifted accordingly:
 			if(strff("int", heave)){
 				dz <- abs(median(diff(pszx)))
+				
+				# Added the requirements that the data must have at least two non-NAs:
+				#if(!all(data$pszv==0)){
 				if(!all(data$pszv==0)){
 					for(i in seq_len(dim(data$vbsc)[2])){
-						data$vbsc[,i] <- approx(pszx, data$vbsc[,i], pszx + data$pszv[i])$y
+						if(sum(!is.na(data$vbsc[,i])) >= 2){
+							data$vbsc[,i] <- approx(pszx, data$vbsc[,i], pszx + data$pszv[i])$y
+						}
 					}
 				}
 			}
@@ -706,7 +787,7 @@ cplot2d.TSD<-function(
 			}
 			
 			# Defaults:
-			mainDefault <- paste0("Frequency: ", round(data$freq * 1e-3), " kHz")
+			mainDefault <- paste0("Frequency: ", round(data$freq[1] * 1e-3), " kHz")
 			interpolateDefault <- FALSE
 			
 			# Orient the data so that the coordinates are increasing, as required by image.plot(), this turns the data also in image_grid.raster():
@@ -827,20 +908,26 @@ cplot2d.TSD<-function(
 				plotxaxis(xaxis=xaxis, ...)
 			}
 		
-		# Add the color bar:
-		if(strff("c", plot)){
-			image.plot(NULL, col=colvec, breaks=breaks, legend.only=TRUE, nlevel=length(breaks)*10, ...)
 		}
-		
-		if(length(clock)==0){
-			if(is.sonar(data)) "bbl" else FALSE
-		}
-		add.clock(clock=clock, utim=unlist(utim.TSD(data)), indt=data$indt, cex.clock=cex.clock, format.clock=format.clock, digits.clock=digits.clock, col.clock=col.clock, D=2)
-		lll <- list(...)
-		title(main=if(length(lll$main)) lll$main else paste0("Frequency: ", round(data$freq * 1e-3), " kHz"))
-		invisible(list(vbsc=10^(data$vbsc/10), indt=t, pszx=pszx))
-		}
+	# Add the color bar:
+	if(strff("c", plot)){
+		image.plot(NULL, col=colvec, breaks=breaks, legend.only=TRUE, nlevel=length(breaks)*10, ...)
+	}
+	
+	if(length(clock)==0){
+		if(is.sonar(data)) "bbl" else FALSE
+	}
+	
+	if(length(region) && is.list(region) && length(region$fun)){
+		arglist <- region[names(region) %in% names(formals(region$fun))]
+		do.call(polygon, c(list(x=do.call(region$fun, arglist)), region))
+	}
+	
+	add.clock(clock=clock, utim=unlist(utim.TSD(data)), indt=data$indt, cex.clock=cex.clock, format.clock=format.clock, digits.clock=digits.clock, col.clock=col.clock, D=2)
+	lll <- list(...)
+	title(main=if(length(lll$main)) lll$main else paste0("Frequency: ", round(head(data$freq[1], 1) * 1e-3), " kHz"))
+	invisible(list(vbsc=10^(data$vbsc/10), indt=t, pszx=pszx, tbsS=tbsS, tvlS=tvlS, mvbS=mvbS))
 	}
 	##################################################
 	##################################################
-	}
+}

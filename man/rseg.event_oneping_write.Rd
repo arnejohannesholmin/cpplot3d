@@ -4,17 +4,17 @@
 \alias{rseg.event_oneping_write}
 \title{Writes one ping of segmented data from the (SX90) unbiased segmentatino method. Used in rseg.event().}
 \usage{
-rseg.event_oneping_write(d, thisseg, thist_seq, t, utim, valid, subset, dimvbsc,
+rseg.event_oneping_write(d, thisseg, thist, t, utim, valid, subset, dimvbsc,
   segfilesdir, sfnr, dBan, dBb1, dBb2, dBb3, dBb4, dBbs, Xsbg, Xsb1, thisthr,
   thersholdFromSchool, Xcsz, save.trh, save.data, save.ind, kern, wt, type,
-  cmpred, ellipsoid, file_thist_seq, reserve)
+  cmpred, ellipsoid, file_thist, reserve)
 }
 \arguments{
 \item{d}{is the list of data including segmentation and acoustic data.}
 
 \item{thisseg}{is the segmentatino mask.}
 
-\item{thist_seq}{is the time step index. One of 1:t.}
+\item{thist}{is the time step index. One of 1:t.}
 
 \item{t}{is all the time steps to be segmented.}
 
@@ -56,7 +56,7 @@ rseg.event_oneping_write(d, thisseg, thist_seq, t, utim, valid, subset, dimvbsc,
 
 \item{ellipsoid}{is an optional vector of up to three elements specifying the semi axes of an ellipsoid centered at the center of mass of a user selected region, outside which voxels will not be included in the segmentation. The ellispoid can be set to move with the center of mass of the segmented voxels.}
 
-\item{file_thist_seq}{is the time index in the block. If this is equal to 'thist_seq', a new file will be written. Otherwise data will be appended to the file with name given by 'file_thist_seq'.}
+\item{file_thist}{is the time index in the block. If this is equal to 'thist', a new file will be written. Otherwise data will be appended to the file with name given by 'file_thist'.}
 
 \item{reserve}{is used in write.TSD() to reserve time steps for the whole block of time steps.}
 }

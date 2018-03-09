@@ -126,7 +126,7 @@ pplot3d.TSD<-function(
 		}
 	# Set the 'view':
 	if(plot){
-		view = set.view3d(view,cs.pos,cs.view,data$rtzv[1])
+		view = set.view3d(view, cs.pos, cs.view, data$rtzv[1])
 		}
 	# Define the number of time steps:
 	numt = 1
@@ -260,7 +260,7 @@ pplot3d.TSD<-function(
 		}
 	# Else set the range of the plotting volume:
 	else{
-		xyzlim = get.xyzlim(xlim=xlim,ylim=ylim,zlim=zlim,data=data,data$indt[1],school=isTRUE(school),cs.pos=cs.pos,cs.xyzlim=cs.xyzlim)
+		xyzlim = get.xyzlim(xlim=xlim, ylim=ylim, zlim=zlim, data=data, data$indt[1], school=isTRUE(school), cs.pos=cs.pos, cs.xyzlim=cs.xyzlim)
 		}
 	
 	
@@ -417,7 +417,12 @@ pplot3d.TSD<-function(
 	# Output:
 	# The 'n' output only reflects the latest time step!
 	#invisible(c(list(utim=data$utim, view = view, xyzlim=xyzlim, nlim=pos$nlim, fact=pos$fact), inside, list(msvM=msvM, finalN=finalN, finalacca=finalacca, n=pos$n, psxr=plotpsxr, psyr=plotpsyr, pszr=plotpszr, idx=if(plot) idx else NULL), data[intersect(vesselnames,names(data))]))
-	invisible(c(list(utim=data$utim, view = view, xyzlim=xyzlim, nlim=pos$nlim, fact=pos$fact), inside, list(msvM=msvM, finalN=finalN, finalacca=finalacca, n=pos$n, psxr=data$psxr, psyr=data$psyr, pszr=data$pszr, idx=if(plot) idx else NULL), data[intersect(vesselnames,names(data))]))
-	##################################################
-	##################################################
+	if(isTRUE(ll$pos.out)){
+		invisible(c(list(utim=data$utim, view = view, xyzlim=xyzlim, nlim=pos$nlim, fact=pos$fact), inside, list(msvM=msvM, finalN=finalN, finalacca=finalacca, n=pos$n, psxr=data$psxr, psyr=data$psyr, pszr=data$pszr, idx=if(plot) idx else NULL), data[intersect(vesselnames,names(data))]))
 	}
+	else{
+		invisible(c(list(utim=data$utim, view = view, xyzlim=xyzlim, nlim=pos$nlim, fact=pos$fact), inside, list(msvM=msvM, finalN=finalN, finalacca=finalacca, n=pos$n, idx=if(plot) idx else NULL), data[intersect(vesselnames,names(data))]))
+	}
+	##################################################
+	##################################################
+}
