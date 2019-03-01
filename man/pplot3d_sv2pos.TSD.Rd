@@ -5,15 +5,15 @@
 \title{Returns a list of three elements, where the first element is a three column matrix of regenerated points of acoustic size 'acca', the second element is a three column matrix of regenerated points of acoustic size 'acca' where the number of points in each voxel is no larger than 'nlim', and the third element is a three column matrix of regenerated points of acoustic size acca/fact.
 !!!Only one time step is treated!!!!}
 \usage{
-pplot3d_sv2pos.TSD(data, N = 1e+05, acca = NULL, fun = "mod", t = 1,
-  esnm = "MS70", var = c("vbsc", "sgsc", "pr0s", "sgs0", "sgsE", "sgsi",
-  "sgsI", "psis", "tlns"), ind = list(-(1:100), NULL), range = list(),
-  subset = NULL, beamstypes = 1, cs = "g", ideal = TRUE,
-  allert = NULL, plot = TRUE, seabed = -12000, rot = 1,
-  compensation = c("pitch", "roll"), nlim = NULL, fact = NULL,
-  cols = c("black", "navyblue", "magenta4", "red3", "darkorange2", "yellow"),
-  stretch = 1, scale.voxels = 1, rand.gen = c("unif", "beta", "norm"),
-  total.out = FALSE, ...)
+pplot3d_sv2pos.TSD(data, N = 1e+05, acca = NULL, fun = "mod",
+  t = 1, esnm = "MS70", var = c("vbsc", "sgsc", "pr0s", "sgs0",
+  "sgsE", "sgsi", "sgsI", "psis", "tlns"), ind = list(-(1:100), NULL),
+  range = list(), subset = NULL, beamstypes = 1, cs = "g",
+  ideal = TRUE, allert = NULL, plot = TRUE, seabed = -12000,
+  rot = 1, compensation = c("pitch", "roll"), nlim = NULL,
+  fact = NULL, cols = c("black", "navyblue", "magenta4", "red3",
+  "darkorange2", "yellow"), stretch = 1, scale.voxels = 1,
+  rand.gen = c("unif", "beta", "norm"), total.out = FALSE, ...)
 }
 \arguments{
 \item{data}{is the list of TSD inputs as returned from read.event(var=c("vbsc","voxels","vessel")). Should only contain one ping/timestep.}

@@ -5,8 +5,8 @@
 \title{Plots fish as points or lines in 3-D, from data "psxf", "psyf", "pszf", "rtzf", "rtxf" given in 'data'.}
 \usage{
 fplot3d.TSD(data, schoolcol = "red2", schoolsize = 0.3,
-  schoolsample = 0.01, schoollen = 4, schoollwd = 1, schooltype = "p",
-  add = FALSE, aspect = "iso", ...)
+  schoolsample = 0.01, schoollen = 4, schoollwd = 1,
+  schooltype = "p", add = FALSE, aspect = "iso", ...)
 }
 \arguments{
 \item{schoolcol}{is the color of the points of the fish positions if school==TRUE or a string representing the directory containing .school files to be read for fish positions.}

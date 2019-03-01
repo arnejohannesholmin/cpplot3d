@@ -5,9 +5,9 @@
 \title{Segments one ping with the (SX90) unbiased segmentatino method. Used in rseg.event().}
 \usage{
 rseg.event_block(t_seq, t, utim, noise, noisethr, thr, segfilesdir, sfnr,
-  thersholdFromSchool, dBb1, dBb2, dBb3, dBb4, dBbs, nseg1, nseg2, Xcsz, add,
-  event, kern, type, noisesmooth, ind, range, beamend, save.trh, save.data,
-  save.ind, wt, esnm, cmpred, avoid, ellipsoid, nlmp, ...)
+  thersholdFromSchool, dBb1, dBb2, dBb3, dBb4, dBbs, nseg1, nseg2, Xcsz,
+  add, event, kern, type, noisesmooth, ind, range, beamend, save.trh,
+  save.data, save.ind, wt, esnm, cmpred, avoid, ellipsoid, nlmp, ...)
 }
 \arguments{
 \item{t_seq}{is the time step index. One of 1:t.}

@@ -5,14 +5,15 @@
 \title{Segments SX90 data using noise-up and top-down.}
 \usage{
 rseg.event(event, t = 1, cores = 1, memsize = 1e+09, noise = NULL,
-  kern = 21L, wt = 5, noisethr = 8, schoolthr = function(S, SBR) 4.4 +
-  0.013 * S + 0.1 * SBR, thr = NULL, ind = list(-(1:300), -(49 + (-5:5))),
-  subset = NULL, range = NULL, beamend = kern, type = c("median",
-  "mean"), noisesmooth = 100, startn = NULL, fresh = FALSE,
-  keep.temp = FALSE, save.trh = FALSE, save.data = FALSE,
-  save.ind = FALSE, rawevent = NULL, dir.data = NULL, owtsd = TRUE,
-  temp = FALSE, track = FALSE, ellipsoid = NA, cmpred = NA,
-  nlmp = 200, avoid = NULL, plot = FALSE, ...)
+  kern = 21L, wt = 5, noisethr = 8, schoolthr = function(S, SBR)
+  4.4 + 0.013 * S + 0.1 * SBR, thr = NULL, ind = list(-(1:300), -(49 +
+  (-5:5))), subset = NULL, range = NULL, beamend = kern,
+  type = c("median", "mean"), noisesmooth = 100, startn = NULL,
+  fresh = FALSE, keep.temp = FALSE, save.trh = FALSE,
+  save.data = FALSE, save.ind = FALSE, rawevent = NULL,
+  dir.data = NULL, owtsd = TRUE, temp = FALSE, track = FALSE,
+  ellipsoid = NA, cmpred = NA, nlmp = 200, avoid = NULL,
+  plot = FALSE, ...)
 }
 \arguments{
 \item{event}{is the identifier of the event, either given as the number of the event, a string contained in the name of the event, or the path of the event directory.}
@@ -75,7 +76,7 @@ rseg.event(event, t = 1, cores = 1, memsize = 1e+09, noise = NULL,
 
 \item{plot}{is TRUE to plot the segmentations for each time step, or for each 'plot' time step if 'plot' is numeric.}
 
-\item{...}{parameters passed to merge_TSD(), particularly 'chunksize'.}
+\item{...}{parameters passed to combine.TSD(), particularly 'chunksize'.}
 }
 \value{
 

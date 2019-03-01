@@ -393,6 +393,7 @@ cpplot3d.event<-function(
 		if(length(ss$psxS)>0){
 			vesselutim <- read.event(cruise=cruise, event=event, esnm=esnm, var="utim",t="all")$utim
 			ss <- echoIBM.generate_dynschool(c(ss,s), t=tlist[[i]], vesselutim=vesselutim, adds=adds)
+			ss <- echoIBM.addRandomness(ss, grsd_plHS=NULL)
 			}
 		schoolVarToFillIn <- intersect(names(ss), schoolvar)
 		s[schoolVarToFillIn] <- ss[schoolVarToFillIn]
@@ -431,8 +432,8 @@ cpplot3d.event<-function(
 				global.grid=FALSE)
 			
 			# Define the variables present in '...' but not in the list 'thisl':
-			otherl <- ll[setdiff(names(ll),names(thisl))]
-			thisout <- do.call("cplot3d.TSD",c(thisl,otherl))
+			otherl <- ll[setdiff(names(ll), names(thisl))]
+			thisout <- do.call("cplot3d.TSD", c(thisl, otherl))
 			}
 		else if(strff("p", cpplot3d_type)){
 			if(!is.numeric(size)){
@@ -473,8 +474,8 @@ cpplot3d.event<-function(
 				global.grid=FALSE)
 			
 			# Define the variables present in '...' but not in the list 'thisl':
-			otherl <- ll[setdiff(names(ll),names(thisl))]
-			thisout <- do.call("pplot3d.TSD",c(thisl,otherl))
+			otherl <- ll[setdiff(names(ll), names(thisl))]
+			thisout <- do.call("pplot3d.TSD", c(thisl, otherl))
 			}
 		else{
 			stop("Invalid values of 'cpplot3d_type'. Should be one of \"c\" and \"p\"")

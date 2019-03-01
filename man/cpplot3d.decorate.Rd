@@ -9,12 +9,13 @@ cpplot3d.decorate(data = NULL, plot = TRUE, aspect = "iso",
   zlab = "z", full.box = FALSE, edge.vpos = "", line.vpos = 0,
   at.vpos = NULL, cex.vpos = 1, col.vpos = "blue", clock = "bbl",
   cex.clock = 1, adj.clock = c(0, 0),
-  format.clock = "Ping: indt\\nyyyy-mm-dd\\nHH:MM:SS.FFF", digits.clock = 2,
-  lsp.clock = 0.04, col.clock = 4, sonar.grid = "frame",
-  sonar.grid.col = c("orange", "cornflowerblue"), sonar.grid.lwd = 1,
-  cs.pos = "g", cs.view = "g", sides = c("tb", "tb"), dens = c(200, 100,
-  100, 1), every = Inf, global.grid = FALSE, global.grid.lwd = 0.5,
-  global.grid.lty = 1, ...)
+  format.clock = "Ping: indt\\nyyyy-mm-dd\\nHH:MM:SS.FFF",
+  digits.clock = 2, lsp.clock = 0.04, col.clock = 4,
+  sonar.grid = "frame", sonar.grid.col = c("orange", "cornflowerblue"),
+  sonar.grid.lwd = 1, cs.pos = "g", cs.view = "g", sides = c("tb",
+  "tb"), dens = c(200, 100, 100, 1), every = Inf,
+  global.grid = FALSE, global.grid.lwd = 0.5, global.grid.lty = 1,
+  ...)
 }
 \arguments{
 \item{data}{is a list containing "utim", "dira", "dire", "asps", "sint", "lenb", "psxv", "psyv", "pszv", "psze", and "rtzv".}

@@ -567,7 +567,8 @@ cplot2d.TSD<-function(
 	
 	if(strff("e", plot)){
 		# Plot a only sonar image:
-		if(is.sonar(data, fishery=TRUE)){
+		#if(is.sonar(data, fishery=TRUE)){
+		if(FALSE){
 			
 			# Set default ylab:
 			xlabDefault <- "x (m)"

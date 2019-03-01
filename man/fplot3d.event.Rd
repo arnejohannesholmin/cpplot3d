@@ -5,8 +5,9 @@
 \title{Plots fish as points or lines in 3-D, from data "psxf", "psyf", "pszf", "rtzf", "rtxf" located in the event.}
 \usage{
 fplot3d.event(event, t = 1, schoolcol = "red2", schoolsize = 0.3,
-  schoolsample = 0.01, schoollen = 4, schoollwd = 1, schooltype = "p",
-  schoolnumt = NULL, add = FALSE, aspect = "iso", ...)
+  schoolsample = 0.01, schoollen = 4, schoollwd = 1,
+  schooltype = "p", schoolnumt = NULL, add = FALSE, aspect = "iso",
+  ...)
 }
 \arguments{
 \item{event}{is the identifier of the event, either given as the number of the event, a string contained in the name of the event, or the path of the event directory.}

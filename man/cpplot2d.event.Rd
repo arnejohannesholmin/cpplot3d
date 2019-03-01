@@ -5,22 +5,23 @@
 \title{Echogram using color or points (not implemented).}
 \usage{
 cpplot2d.event(cpplot2d_type, event = 1, t = 1, cruise = 2009116,
-  dir.data = NULL, max.memory = 8e+09, breaks = 40, col = "combined",
-  colpar = list(start = 0, end = 0.8, flip = TRUE), null.value = NA,
-  beamstypes = 1, grid = TRUE, white = 0, log = TRUE,
-  endcol = c("white", ""), esnm = "MS70", var = c("vbsc", "sgsc", "pr0s",
-  "sgs0", "sgsE", "sgsi", "sgsI", "psis", "tlns"), ind = list(),
-  range = list(), subset = NULL, plot = TRUE, cs.xyzlim = "g",
-  xlim = NULL, ylim = NULL, zlim = NULL, tlim = NULL, up = FALSE,
-  freq = 1, wb = 1, rmar = 5, xaxis = c("time", "dist", "pings"),
-  gap = median, gapthr = 10, tol = 0.1, heave = c("interp", "pixel",
-  "ignore"), x0 = NULL, unit = NULL, date = c("unique", "all", "none"),
-  nticksx = 10, lwdfact = 55, region = NULL, adds = NULL, origin = 1,
-  clock = NULL, cex.clock = 1,
-  format.clock = "Ping: indt\\nyyyy-mm-dd\\nHH:MM:SS.FFF", digits.clock = 2,
-  col.clock = 4, tres = NULL, xres = NULL, zres = NULL, rres = NULL,
-  bres = NULL, funvbsc = c("median", "mean"), funt = c("median", "mean"),
-  cs = "g", ...)
+  dir.data = NULL, max.memory = 8e+09, breaks = 40,
+  col = "combined", colpar = list(start = 0, end = 0.8, flip = TRUE),
+  null.value = NA, beamstypes = 1, grid = TRUE, white = 0,
+  log = TRUE, endcol = c("white", ""), esnm = "MS70",
+  var = c("vbsc", "sgsc", "pr0s", "sgs0", "sgsE", "sgsi", "sgsI", "psis",
+  "tlns"), ind = list(), range = list(), subset = NULL,
+  plot = TRUE, cs.xyzlim = "g", xlim = NULL, ylim = NULL,
+  zlim = NULL, tlim = NULL, up = FALSE, freq = 1, wb = 1,
+  rmar = 5, xaxis = c("time", "dist", "pings"), gap = median,
+  gapthr = 10, tol = 0.1, heave = c("interp", "pixel", "ignore"),
+  x0 = NULL, unit = NULL, date = c("unique", "all", "none"),
+  nticksx = 10, lwdfact = 55, region = NULL, adds = NULL,
+  origin = 1, clock = NULL, cex.clock = 1,
+  format.clock = "Ping: indt\\nyyyy-mm-dd\\nHH:MM:SS.FFF",
+  digits.clock = 2, col.clock = 4, tres = NULL, xres = NULL,
+  zres = NULL, rres = NULL, bres = NULL, funvbsc = c("median",
+  "mean"), funt = c("median", "mean"), cs = "g", ...)
 }
 \arguments{
 \item{cpplot2d_type}{is "c" for cplot2d.event() and "p" for pplot2d.event(). See \code{\link{cplot2d.event}} for the other variables.}

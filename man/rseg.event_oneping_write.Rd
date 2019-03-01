@@ -4,10 +4,10 @@
 \alias{rseg.event_oneping_write}
 \title{Writes one ping of segmented data from the (SX90) unbiased segmentatino method. Used in rseg.event().}
 \usage{
-rseg.event_oneping_write(d, thisseg, thist, t, utim, valid, subset, dimvbsc,
-  segfilesdir, sfnr, dBan, dBb1, dBb2, dBb3, dBb4, dBbs, Xsbg, Xsb1, thisthr,
-  thersholdFromSchool, Xcsz, save.trh, save.data, save.ind, kern, wt, type,
-  cmpred, ellipsoid, file_thist, reserve)
+rseg.event_oneping_write(d, thisseg, thist, t, utim, valid, subset,
+  dimvbsc, segfilesdir, sfnr, dBan, dBb1, dBb2, dBb3, dBb4, dBbs, Xsbg,
+  Xsb1, thisthr, thersholdFromSchool, Xcsz, save.trh, save.data, save.ind,
+  kern, wt, type, cmpred, ellipsoid, file_thist, reserve)
 }
 \arguments{
 \item{d}{is the list of data including segmentation and acoustic data.}

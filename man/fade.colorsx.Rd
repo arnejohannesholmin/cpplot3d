@@ -5,8 +5,8 @@
 \title{Returns a color vector interpolated between the colors specified by 'start' and 'end', possitbly fading via white of black.}
 \usage{
 fade.colorsx(x, start = "red", end = "violet", breakpoint = 0.5,
-  bias = 1, space = c("rgb", "Lab"), interpolate = c("linear", "spline",
-  "fadewhite", "fadeblack"), flip = FALSE, ...)
+  bias = 1, space = c("rgb", "Lab"), interpolate = c("linear",
+  "spline", "fadewhite", "fadeblack"), flip = FALSE, ...)
 }
 \arguments{
 \item{x}{is a numeric object to which rainbow colors combined with lightening and darkening should be matched.}

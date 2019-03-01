@@ -5,9 +5,9 @@
 \title{Generate a series of 3-D echograms with the function cplot3d.event(), which are save as png files and can be animated.}
 \usage{
 acplot3d.event_default(event, t = NULL, range = list(pszx = -80:-10),
-  size = "SU90", breaks = seq(-86, -40, 2), white = 5, acca = 5e-04,
-  info = "every1_cs_v", bgns = FALSE, pdns = FALSE, hins = FALSE,
-  hins_add = 50, cores = 1)
+  size = "SU90", breaks = seq(-86, -40, 2), white = 5,
+  acca = 5e-04, info = "every1_cs_v", bgns = FALSE, pdns = FALSE,
+  hins = FALSE, hins_add = 50, cores = 1)
 }
 \arguments{
 \item{event}{is the identifier of the event, either given as the number of the event, a string contained in the name of the event, or the path of the event directory.}

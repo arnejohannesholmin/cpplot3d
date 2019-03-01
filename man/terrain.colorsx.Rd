@@ -4,8 +4,8 @@
 \alias{terrain.colorsx}
 \title{Returns a color vector of terrain colors.}
 \usage{
-terrain.colorsx(x, start = 0, end = 1, clamp = NULL, breakpoint = 0.5,
-  flip = FALSE, alpha = 1, ...)
+terrain.colorsx(x, start = 0, end = 1, clamp = NULL,
+  breakpoint = 0.5, flip = FALSE, alpha = 1, ...)
 }
 \arguments{
 \item{x}{is a numeric object to which rainbow colors combined with lightening and darkening should be matched.}

@@ -4,12 +4,13 @@
 \alias{echoIBM.vbsc2p.event}
 \title{Estimates the probability of not school in voxels of the MS70 sonar.}
 \usage{
-echoIBM.vbsc2p.event(event = 1, t = 1, cruise = 2009116, bgns = NULL,
-  beta0 = NULL, beta1 = NULL, factor = NULL, ind = list(-(1:30), NULL),
-  nsind = 0.75, smind = list(-(1:300)), range = list(), subset = NULL,
-  h = NULL, alpha = NULL, dir.data = NULL, hins_add = 10,
-  phase = TRUE, TVG.exp = 2, esnm = "MS70", subtractNoise = TRUE,
-  adds = list(), sim = TRUE, na.rm = 1, allow.old = FALSE, TOV = 0)
+echoIBM.vbsc2p.event(event = 1, t = 1, cruise = 2009116,
+  bgns = NULL, beta0 = NULL, beta1 = NULL, factor = NULL,
+  ind = list(-(1:30), NULL), nsind = 0.75, smind = list(-(1:300)),
+  range = list(), subset = NULL, h = NULL, alpha = NULL,
+  dir.data = NULL, hins_add = 10, phase = TRUE, TVG.exp = 2,
+  esnm = "MS70", subtractNoise = TRUE, adds = list(), sim = TRUE,
+  na.rm = 1, allow.old = FALSE, TOV = 0)
 }
 \arguments{
 \item{event}{is the identifier of the event, either given as the number of the event, a string contained in the name of the event, or the path of the event directory.}

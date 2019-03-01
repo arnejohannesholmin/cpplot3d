@@ -5,6 +5,12 @@ Providing functions for creating 3D color and point plots using the rgl package,
 
 ########## Version 1.1 ##########
 
-Minor bug fixes
+Minor bug fixes.
 
-Moved development to GitHub
+Moved development to GitHub.
+
+
+########## Version 1.2 ##########
+
+Added randomness in school positions when plotting 3d plots with school=TRUE.
+

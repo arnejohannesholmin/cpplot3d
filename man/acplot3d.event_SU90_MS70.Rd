@@ -4,10 +4,10 @@
 \alias{acplot3d.event_SU90_MS70}
 \title{Generate a sequence of 3d color plots of fishery sonar with MS70 added as points. (See acplot3d.event() for parameter documentation)}
 \usage{
-acplot3d.event_SU90_MS70(events, t = NULL, range = list(pszx = -80:-10),
-  size = "SU90", breaks = seq(-86, -40, 2), white = 5, acca = 5e-04,
-  info = "every1_cs_v", bgns = FALSE, pdns = FALSE, hins = FALSE,
-  hins_add = 50, cores = 1)
+acplot3d.event_SU90_MS70(events, t = NULL, range = list(pszx =
+  -80:-10), size = "SU90", breaks = seq(-86, -40, 2), white = 5,
+  acca = 5e-04, info = "every1_cs_v", bgns = FALSE, pdns = FALSE,
+  hins = FALSE, hins_add = 50, cores = 1)
 }
 \value{
 

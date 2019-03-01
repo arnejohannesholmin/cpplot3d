@@ -4,16 +4,16 @@
 \alias{echoIBM.segment.event}
 \title{NA}
 \usage{
-echoIBM.segment.event(event = 1, t = 1, cruise = 2009116, bgns = NULL,
-  beta0 = NULL, beta1 = NULL, misM = NULL, iter = TRUE,
-  factor = 10^(-5/10), minmsvM = 10^(-40/10), pow = 1,
+echoIBM.segment.event(event = 1, t = 1, cruise = 2009116,
+  bgns = NULL, beta0 = NULL, beta1 = NULL, misM = NULL,
+  iter = TRUE, factor = 10^(-5/10), minmsvM = 10^(-40/10), pow = 1,
   ind = list(-(1:30), NULL), nsind = 0.75, smind = list(-(1:300)),
   range = list(), subset = NULL, h = NULL, alpha = NULL,
   filesize = 3e+08, hins_add = 10, turns = 10, phase = TRUE,
   TVG.exp = 2, var = c("vbsc", "sgbt", "posf"), dens = NULL,
-  segdir = NULL, esnm = "MS70", subtractNoise = TRUE, pr0s.out = FALSE,
-  adds = list(), sim = TRUE, allow.old = FALSE, TOV = 0, startn = 1,
-  ...)
+  segdir = NULL, esnm = "MS70", subtractNoise = TRUE,
+  pr0s.out = FALSE, adds = list(), sim = TRUE, allow.old = FALSE,
+  TOV = 0, startn = 1, ...)
 }
 \arguments{
 \item{event}{is the identifier of the event, either given as the number of the event, a string contained in the name of the event, or the path of the event directory.}

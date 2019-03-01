@@ -6,8 +6,8 @@
 \usage{
 add.clock(clock = "bbl", utim = 0, indt = NULL, cex.clock = 1,
   adj.clock = c(0, 0),
-  format.clock = "Ping: indt\\nyyyy-mm-dd\\nHH:MM:SS.FFF", digits.clock = 2,
-  lsp.clock = 0.04, col.clock = 4, D = 3)
+  format.clock = "Ping: indt\\nyyyy-mm-dd\\nHH:MM:SS.FFF",
+  digits.clock = 2, lsp.clock = 0.04, col.clock = 4, D = 3)
 }
 \arguments{
 \item{clock}{is the position of the clock timing the frames, either given as a vector of length 3 representing the coordinates of the clock, as FALSE for no clock, or as one of}

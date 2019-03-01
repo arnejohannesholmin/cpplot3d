@@ -6,8 +6,8 @@
 \usage{
 colscale(x, fun = c("rainbow", "grey", "fade.colorsx", "heat.colors",
   "terrain.colors", "topo.colors", "cm.colors", "combined"), start = 0,
-  end = 0.8, h = 1/6, s = 1, v = 1, sc = c(1, 0.3), vc = c(0.7, 1),
-  flip = FALSE, bias = 1, space = c("rgb", "Lab"),
+  end = 0.8, h = 1/6, s = 1, v = 1, sc = c(1, 0.3), vc = c(0.7,
+  1), flip = FALSE, bias = 1, space = c("rgb", "Lab"),
   interpolate = c("linear", "spline", "fadewhite", "fadeblack"),
   breakpoint = NULL, alpha = 1, ...)
 }

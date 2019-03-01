@@ -32,7 +32,7 @@
 #' @param nlmp  is the number of center of mass positions of the school used to predict the next center of mass.
 #' @param avoid  defines a region in which segmentation will not be performed, such as a regio around the vessel track, typically avoid=list(numt=50, dist=30, vessel=TRUE), indicating that all points within 30 m of the last 50 vessel positions should be discarded.
 #' @param plot  is TRUE to plot the segmentations for each time step, or for each 'plot' time step if 'plot' is numeric.
-#' @param ...  parameters passed to merge_TSD(), particularly 'chunksize'.	
+#' @param ...  parameters passed to combine.TSD(), particularly 'chunksize'.	
 #'
 #' @return
 #'
@@ -42,8 +42,8 @@
 #' @importFrom parallel detectCores makeCluster stopCluster
 #' @importFrom pbapply pblapply
 #' @importFrom rgl ellipse3d plot3d points3d selectpoints3d
-#' @importFrom sonR extract_event medSmooth1 merge_events read.event
-#' @importFrom TSD even merge_TSD prettyIntegers read.TSD splitSeqIntoBlocks strff zeros
+#' @importFrom sonR extract_event medSmooth1 combine.events read.event
+#' @importFrom TSD even combine.TSD prettyIntegers read.TSD splitSeqIntoBlocks strff zeros
 #' @importFrom utils tail head
 #' @importFrom stats quantile lm predict
 #' @importFrom grDevices hsv
@@ -54,10 +54,6 @@
 #'
 rseg.event<-function(event, t=1, cores=1, memsize=1e9, noise=NULL, kern=21L, wt=5, noisethr=8, schoolthr=function(S, SBR) 4.4 + 0.013*S + 0.1*SBR, thr=NULL, ind=list(-(1:300), -(49+(-5:5))), subset=NULL, range=NULL, beamend=kern, type=c("median", "mean"), noisesmooth=100, startn=NULL, fresh=FALSE, keep.temp=FALSE, save.trh=FALSE, save.data=FALSE, save.ind=FALSE, rawevent=NULL, dir.data=NULL, owtsd=TRUE, temp=FALSE, track=FALSE, ellipsoid=NA, cmpred=NA, nlmp=200, avoid=NULL, plot=FALSE, ...){
 	
-	############ AUTHOR(S): ############
-	# Arne Johannes Holmin
-	############ LANGUAGE: #############
-	# English
 	############### LOG: ###############
 	# Start: 2014-02-21 - Clean version.
 	# Update: 2014-08-28 - Updated to apply first a threshold set 'noisethr' above the noise, then use the resulting segmentation masks to estimate the upper 90-percentile of the school values, smooth these in time by a spline smoother, and repeat the segmentations with thresholds set 'schoolthr' belov the smoothed school 90-percentile.
@@ -70,46 +66,7 @@ rseg.event<-function(event, t=1, cores=1, memsize=1e9, noise=NULL, kern=21L, wt=
 	# Update: 2015-10-05 - Added the function rseg.estimate.noise() to rseg.event_oneping().
 	# Update: 2016-05-03 - Added support for fixed threshold. However, this is less efficient than simple thresholding in batches of hundreds of pings.
 	# Last: 2016-06-15 - Added support for segmenting in blocks.
-	########### DESCRIPTION: ###########
-	# Segments SX90 data using noise-up and top-down.
-	########## DEPENDENCIES: ###########
-	# read.event(), echoIBM.get.segfilename(), rseg.event_oneping_write(), rseg.event_oneping(), rseg.event_getschoolthr().
-	############ VARIABLES: ############
-	# ---event--- is the identifier of the event, either given as the number of the event, a string contained in the name of the event, or the path of the event directory.
-	# ---t--- is a vector of the time steps to segment, or a two element vector of ftim values between which rawfiles are extracted from a directory (see the description of 'event').
-	# ---cores--- is the number of cores to use for parallel processing.
-	# ---noise--- can be given as an array of background noise values (either of dimension [J], or [J, I], where J is the length of the beams and I is the number of beams), in which case the background will not be calculated for each time step.
-	# ---kern--- is an integer if the Profus segmentation method is applied, smoothing the data by a median filter of 21 voxels along the beams. If specified as double (not using the "L" behind the number), Gaussian kernel is used along the beams, with a warning.
-	# ---wt--- is the number of time steps used as the width of the median filter along time steps.
-	# ---noisethr--- is a vector of segmentation threshold levels above the noise. One segmentation file is written for each value of 'noisethr'.
-	# ---schoolthr--- is a function of size and mean volume backscattering strength (S_V) defining the threshold level below the 90-percentile of the school using the initial above-noise-threshold. Can also be a vector of values, where one segmentation file is written for each value of 'schoolthr'.
-	# ---thr--- is the fixed threshold to use, in which case 'noisethr' and 'schoolthr' are ignored.
-	# ---ind--- is a list of indexes, as typed into the [] of an array, where 0 and NULL denotes all indexes, and is used to discard regions of the sampling volume of the sonar, such as the inner 100 voxels and the 11 beams behind the vessel (default)..
-	# ---range--- is a list of elements with names matching names of 'data', specifying the range of the corresponding elements.
-	# ---subset--- is a numeric or logical vector/expression indicating elements or rows to keep. Missing values are taken as false, and subset=0 or subset=NULL indicates no subsetting.
-	# ---beamend--- is the number of voxels at the end of the beams which should be discarded from the segmentation.
-	# ---type--- is the function to use across beams (one of "mean" and "median", where "mean" is used in PROFUS up to 2014, while "median" is more robust to the valus of the school).
-	# ---noisesmooth--- is the standard deviation of the Gaussian kernel smoother for the background noise/signal estimate, set by CMR (Christian Michelsen Research) to 100.
-	# ---startn--- is the file segmentation file number written to the first segmentation file. If given as a vector of two elements, the second element is the segmentation file number of the first file using below-school-threshold.
-	# ---fresh--- should be set to FALSE if existing noise-up files should be kept. Otherwise, these are overwritten without warning.
-	# ---keep.temp--- should be set to TRUE to keep all temporary files written by the cores.
-	# ---save.trh--- should be set to TRUE to save the smoothed background noise/signal estimate and the threshold value, 'lenb' values, for each ping. Requires typically 20 KB per ping and 20 MB per 1000 pings. For a mini survey of 12 hours and one ping per 2 seconds, the two variables require more than 500 MB.
-	# ---save.data--- is TRUE to save the actual segmented acoustic data.
-	# ---rawevent--- specifies a directory with raw files which are copied to 'event' and converted to TSD filess before running the segmentation.
-	# ---dir.data--- is the path to the directory in which the projects are stored, defaulted by the variable Acoustics_datasets_directory().
-	# ---owtsd--- is FALSE to not overwrite existing data when copying data from 'rawevent'.
-	# ---temp--- is used in extract_event(), and is TRUE to only return the temporary directory if raw files already exist and toTSD==TRUE, in which case the existing and temporary tsd files are not merged into the existing.
-	# ---track--- is TRUE to track the school recursively in time, to locate the midpoint of the ellipsoid restricting the segmentation of the schools.
-	# ---ellipsoid--- is an optional vector of up to three elements specifying the semi axes of an ellipsoid centered at the center of mass of a user selected region, outside which voxels will not be included in the segmentation. The ellispoid can be set to move with the center of mass of the segmented voxels.
-	# ---cmpred--- is a three column matrix holding the centers of mass of the ellipsoid outside which no samples are discarded from the segmentation mask. This matrix must have one row per time step, starting at the first time step.
-	# ---nlmp--- is the number of center of mass positions of the school used to predict the next center of mass.
-	# ---avoid--- defines a region in which segmentation will not be performed, such as a regio around the vessel track, typically avoid=list(numt=50, dist=30, vessel=TRUE), indicating that all points within 30 m of the last 50 vessel positions should be discarded.
-	# ---plot--- is TRUE to plot the segmentations for each time step, or for each 'plot' time step if 'plot' is numeric.
-	# ---...--- parameters passed to merge_TSD(), particularly 'chunksize'.	
 	
-	
-	##################################################
-	##################################################
 	##### Preparation #####
 	getMovingAverage <- function(x, l=5){
 		if(length(x)==0){
@@ -153,9 +110,9 @@ rseg.event<-function(event, t=1, cores=1, memsize=1e9, noise=NULL, kern=21L, wt=
 		
 	mergeSegfiles <- function(segfilesdir, targetdir, numt, filesize=1e9){
 		# Allways save in only one file for each combination of 'dBan' and 'dBbs', regardless of the number of time steps. This is done for simplicity, and due to the following calculation of storage: Take a mini survey of 12 hours and one ping per 2 seconds (21600 pings) with 3253 samples along each beam at 600 m max range. Imagine a school covering 10 beams over 1000 samples, approximately 200 m in size, and keep this in the sonar volume at all pings. The total amount of segmentation values is then 21600 * 10 * 1000 * 4e-6 MB = 864 MB, where 4e-6 reflects 4 bytes per long integer. This extreme case only reaches close to 1 GB, which is not scary:
-		### mergedfiles <- merge_TSD(segfilesdir, reserve=numt-1, filesize=filesize, ...)$x_merged
+		### mergedfiles <- combine.TSD(segfilesdir, reserve=numt-1, filesize=filesize, ...)$x_merged
 		cat("\nMeriging segmentation files...\n")
-		mergedfiles <- merge_TSD(segfilesdir, reserve=numt-1, filesize=filesize, pbar=FALSE, ...)
+		mergedfiles <- combine.TSD(segfilesdir, reserve=numt-1, filesize=filesize, pbar=FALSE, ...)
 		newmergedfiles <- file.path(targetdir[1], basename(mergedfiles))
 		newmergedfiles <- sapply(strsplit(newmergedfiles, "_", fixed=TRUE), function(xx) paste0(paste0(xx[-length(xx)], collapse="_"), ".seg"))
 		# Move the merged files to the TSD directory:
@@ -479,7 +436,7 @@ rseg.event<-function(event, t=1, cores=1, memsize=1e9, noise=NULL, kern=21L, wt=
 	}
 	# If raw files were copied from a directory, but there were raw files already existing in the target directory so that a temporary directory was created, from which TSD-files and segmentation files were generated, AND the user specified to keep this temporary directory, merge the existing and temporary TSD-files here:
 	if(temp && length(tempevent)>0){
-		merge_events(c(tempevent, event), tempevent, cruise=NULL, esnm=NULL, dir.data=NULL, ctd=1)
+		combine.events(c(tempevent, event), tempevent, cruise=NULL, esnm=NULL, dir.data=NULL, ctd=1)
 		unlink(event, recursive=TRUE)
 		# Switch back:
 		event <- tempevent

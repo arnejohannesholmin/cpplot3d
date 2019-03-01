@@ -5,10 +5,11 @@
 \title{Generate a sequence of 3d color plots of fishery sonar with a segmentation sphere (as used by SX90.segment.event()) added. (See acplot3d.event() and SX90.segment.event() for parameter documentation)}
 \usage{
 acplot3d.event_withSegSphere(event, t, range = list(pszx = -80:-10),
-  size = "SU90", breaks = seq(-86, -40, 2), white = 5, acca = c(100,
-  200), sphere = TRUE, info = paste("seg", if (isTRUE(sphere)) "sphere", sep
-  = "_"), ell = 100, cores = 1, segpar = 1:2, fun = "mod",
-  maxRange = NULL, nticks = c(5, 5, 2), ...)
+  size = "SU90", breaks = seq(-86, -40, 2), white = 5,
+  acca = c(100, 200), sphere = TRUE, info = paste("seg", if
+  (isTRUE(sphere)) "sphere", sep = "_"), ell = 100, cores = 1,
+  segpar = 1:2, fun = "mod", maxRange = NULL, nticks = c(5, 5, 2),
+  ...)
 }
 \value{
 

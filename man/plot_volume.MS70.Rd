@@ -4,10 +4,10 @@
 \alias{plot_volume.MS70}
 \title{A simple but unelegant way of plotting the sonar volume.}
 \usage{
-plot_volume.MS70(data, xyzlim = NULL, t = 1, plot = c("proj", "frame"),
-  cs.pos = "g", cs.view = "g", length_edges = 200, length_bows = 100,
-  bowdens = 100, beamdens = 1, col = c("orange", "cornflowerblue"),
-  sides = c("trbl", "trbl"), ends = FALSE, ...)
+plot_volume.MS70(data, xyzlim = NULL, t = 1, plot = c("proj",
+  "frame"), cs.pos = "g", cs.view = "g", length_edges = 200,
+  length_bows = 100, bowdens = 100, beamdens = 1, col = c("orange",
+  "cornflowerblue"), sides = c("trbl", "trbl"), ends = FALSE, ...)
 }
 \arguments{
 \item{data}{is a list of data including the elements named "dira", "dire", "asps", "sint", "lenb", "rtzv", "psxv", "psyv", "pszv" and "psze".}

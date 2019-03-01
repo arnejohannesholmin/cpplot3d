@@ -332,7 +332,7 @@ pplot3d.TSD<-function(
 					data$rtxf[[p]] = data$rtxf[[p]][inside]
 					data$rtzf[[p]] = data$rtzf[[p]][inside]
 					# Define line segments representing fish with directions:
-					addxyz = sph2car(cbind(schoollen/2,pi/2+data$rtzf[[p]],pi/2+data$rtxf[[p]]))
+					addxyz = sph2car(cbind(schoollen/2, pi/2 + data$rtzf[[p]], pi/2 + data$rtxf[[p]]))
 					fromto = NAs(3*length(data$psxf[[p]]),3)
 					fromto[seq(1,nrow(fromto),3),] = cbind(data$psxf[[p]],data$psyf[[p]],data$pszf[[p]])-addxyz
 					fromto[seq(2,nrow(fromto),3),] = cbind(data$psxf[[p]],data$psyf[[p]],data$pszf[[p]])+addxyz
