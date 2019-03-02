@@ -3,8 +3,8 @@ cpplot3d R package
 
 This R package provides functions for creating 3D color and point plots using the rgl package, and segmentation of sonar data.
 
-Version: 1.2
-Required R version: 3.4
+Version: 1.1
+Required R version: 3.4.4
 
 Installation
 =====

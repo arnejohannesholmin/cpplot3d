@@ -45,15 +45,11 @@
 #'
 echoIBM.segment.event<-function(event=1, t=1, cruise=2009116, bgns=NULL, beta0=NULL, beta1=NULL, misM=NULL, iter=TRUE, factor=10^(-5/10), minmsvM=10^(-40/10), pow=1, ind=list(-(1:30), NULL), nsind=0.75, smind=list(-(1:300)), range=list(), subset=NULL, h=NULL, alpha=NULL, filesize=3e8, hins_add=10, turns=10, phase=TRUE, TVG.exp=2, var=c("vbsc", "sgbt", "posf"), dens=NULL, segdir=NULL, esnm="MS70", subtractNoise=TRUE, pr0s.out=FALSE, adds=list(), sim=TRUE, allow.old=FALSE, TOV=0, startn=1, ...){
 	
-	############ AUTHOR(S): ############
-	# Arne Johannes Holmin
-	############ LANGUAGE: #############
-	# English
 	############### LOG: ###############
 	# Start: 2012-05-23 - Clean version.
 	# Update: 2012-05-23 - Added the parameter 'hins_add' for discarding voxels on both sides along beams of the inentified high intensity noise.
 	# Update: 2012-06-08 - Added the parameters 'var' and 'dens', for segmentation of original fish position data.
-	# Update: 2012-10-24 - Changed to support the default parameter values derived in Holmin/Korneliussen/Tjøstheim 2013.
+	# Update: 2012-10-24 - Changed to support the default parameter values derived in Holmin/Korneliussen/Tjostheim 2013.
 	# Update: 2012-11-14 - Substituted the option 'pns3new' by 'phase' with default TRUE, indicating estimation of the phase at each ping.
 	# Update: 2012-12-18 - Added 'code'.
 	# Update: 2012-12-18 - Added 'iter' and 'ifNA'.
@@ -67,42 +63,7 @@ echoIBM.segment.event<-function(event=1, t=1, cruise=2009116, bgns=NULL, beta0=N
 	# Update: 2013-10-04 - Added the option 'pr0s.out', which if TRUE writes the probability data to the file.
 	# Update: 2013-10-14 - Added 'iter' again, to cover the case when length(t)==1.
 	# Last: 2015-06-03 - Added center of mass in the output.
-	########### DESCRIPTION: ###########
-	# 
-	########## DEPENDENCIES: ###########
-	#
-	############ VARIABLES: ############
-	# ---event--- is the identifier of the event, either given as the number of the event, a string contained in the name of the event, or the path of the event directory.
-	# ---t--- is either the number of the ping to be treated, as listed from 1 to the number of pings in the event, or the time point given as a string "yyyymmddHHMMSS.FFF" or "HHMMSS.FFF". Only one time step alowed!
-	# ---cruise--- is either the idenfication number of the cruise, given as specified by the IMR (yyyynnn), or the path to the directory containing the event.
-	# ---bgns--- is ann optional list of noise estimates (must contain the background noise 'bgns', and may contain the periodic noise estimates 'pns1', 'pns2' and 'harm'). The phase parameter 'pns2' is extracted from the data.
-	# ---beta0--- is the minimum schooling threshold for the volume backscattering coefficient. For voxels where beta0<noise: beta0=noise.
-	# ---beta1--- is the maximum schooling threshold for the volume backscattering coefficient, defining the probability distribution of the signal. Should be chosen on the basis of the maximum packing density of the observed species.
-	# ---misM--- is the mean expected observed volume backscattering coefficient (linear value) used in the segmentation. Else, 'misM' should have length equal to the number of time steps. If misM==NULL the absolute lower and upper schooling threshold 'lsth' and 'usth' are used.
-	# ---iter--- is TRUE to apply the iterative method where 'misM' is used in an initial segmentation, the result of which is used to re-estimate 'misM' by the funciton meanSv.TSD() which is then used in the final segmentation. If more than one time steps is requested, the previous estimated 'misM' is used as the initial estimate for the next time steps (thus the input value of 'misM' disregarded). If 'turns' is given different from 1, the mean of the currently processed block of pings is used as the initial estimate of 'misM' for all pings of the next block of pings.  The iterative method uses 'misM' as an initial estimate used when segmenting for 5 dB below this value, and then the 'misM' is estimated from the resulting segmentation mask (scaled by a factor determined from simulations), and then segmenting again with the new estimate. 
-	# ---factor--- is the factor by which the input mean observed volume backscattering strength is multiplied to obtain the enlarged segmentation mask. Lower value normally leads to larger segmentation mask.
-	# ---minmsvM--- is only used when the length of 'misM' is 1 (iterative estimation of the mean sv), and ensures that 'misM' does not go below 'minmsvM' (preventing surface scattering and other noisy values).
-	# ---pow--- is a value to raise the segmentation threshold values to the power of, which if pow<1 eases the strictness of the segmentations, suitable for bottom detection (pow=1/4 might be good):
-	# ---ind--- is a vector or list of indices along the beams, as input to ind.expand(), used to select the subset over which the estimation of background noise is done. Also voxels not included in this subset are assigned p=1.
-	# ---nsind--- is a vector of indices along the beams, as input to ind.expand(), used to select the subset over which the estimation of the phase of the periodic noise is done. If given as a single numeric, the outermost 'nsind' voxels are used in each beam.
-	# ---smind--- is a list of indices used to define the subset which is smoothed spatially to accumulate the probabilities. The default avoids smoothing densely packed voxels, which reduces computational time.
-	# ---h--- is the bandwidth of the spatial Gaussian kernel smoother, given as the standard deviation of the Gaussian distribution. For no smoothing use h=NULL.
-	# ---alpha--- is the significance level of the hypothesis testing of H0: school not present in the voxel, against H1: school present in the voxel. To return non-thresholded data, use alpha=NULL.
-	# ---dir.data--- is the path to the directory in which the projects are stored, defaulted by the variable Acoustics_datasets_directory().
-	# ---hins_add--- is the number of voxels that should be discarded on both sides of high intensity noise voxels voxels along beams, used for accounting for possible high values that are related to the high intensity noise but not classified as such voxels.
-	# ---turns--- is the number of time steps treated in each block of time steps, where higher values demand more memory but reduces CPU time.
-	# ---phase--- is FALSE if any of 'pn3M' (phase for each time step) or 'pns3' (phase equal for all time steps) given in 'bgns' or read from the noise file located by the funciton noise.path.event() should be used, as oposed to estimating the phase from the data for each time step. This is only recommended for simulated data where the phase is constant over all time steps, and saves some CPU time.
-	# ---var--- is "vbsc" for segmenting volume backscattering data, and "posf" for segmenting original fish position data.
-	# ---dens--- is the packing density of the school, used when var="posf". These values are attemptedly read in the event, if not given as input to the function.
-	# ---segdir--- is an optional string giving the name of the folder in which to put the segmentation files. The folder will be put in the directory of the event. segdir==NULL results in segdir="seg0".
-	# ---subtractNoise--- is TRUE if the original acoustic data should be subtracted noise, which is used when returning the total and mean volume backscatter from the segment.
-	# ---pr0s.out--- is TRUE if the smoothed probabilities of insuffuciently high true volume backscattering coefficient to imply school should be returned in arrays of the same dimensions as the volume backscattering coefficient 'vbsc'.
-	# ---adds--- is an optional list of variables overriding the variables in read from the event.
-	# ---sim--- is a TRUE if smoothing should be done only along the first dimensions, simultaneously over the stages of the last dimension. If 'sim' is an integer larger than 1, the positions 'coords' are used 'sim' times, and the data 'x' should have length 'sim' times the length of one coordinate of 'coords'.
 	
-	
-	##################################################
-	##################################################
 	########## Preparation ##########
 	# Get the directory of the event:
 	event = event.path(event=event, cruise=cruise)$event
