@@ -37,10 +37,10 @@ cplot3d.getsize<-function(size){
 		}
 	else if(is.character(size)){
 		# Allow for sonar and echosounder presets:
-		if(sonR_implemented(size, c("MBS"))){
+		if(sonR_implemented(size, c("MBS"))[1]){
 			size = list(type="pow", y=20, par=4)
 			}
-		else if(sonR_implemented(size, c("MBS","OFS"))){
+		else if(sonR_implemented(size, c("MBS","OFS"))[1]){
 			size = list(type="pow", y=20, par=1.5)
 			}
 		do.call("cplot3d.size", size)
