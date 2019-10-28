@@ -788,7 +788,7 @@ cplot2d.TSD<-function(
 			}
 			
 			# Defaults:
-			mainDefault <- paste0("Frequency: ", round(data$freq[1] * 1e-3), " kHz")
+			mainDefault <- paste0("Frequency: ", round(data$freq[freq] * 1e-3), " kHz")
 			interpolateDefault <- FALSE
 			
 			# Orient the data so that the coordinates are increasing, as required by image.plot(), this turns the data also in image_grid.raster():
@@ -910,6 +910,7 @@ cplot2d.TSD<-function(
 			}
 		
 		}
+		
 	# Add the color bar:
 	if(strff("c", plot)){
 		image.plot(NULL, col=colvec, breaks=breaks, legend.only=TRUE, nlevel=length(breaks)*10, ...)
@@ -925,8 +926,8 @@ cplot2d.TSD<-function(
 	}
 	
 	add.clock(clock=clock, utim=unlist(utim.TSD(data)), indt=data$indt, cex.clock=cex.clock, format.clock=format.clock, digits.clock=digits.clock, col.clock=col.clock, D=2)
-	lll <- list(...)
-	title(main=if(length(lll$main)) lll$main else paste0("Frequency: ", round(head(data$freq[1], 1) * 1e-3), " kHz"))
+	#lll <- list(...)
+	#title(main=if(length(lll$main)) lll$main else paste0("Frequency: ", round(head(data$freq[1], 1) * 1e-3), " kHz"))
 	invisible(list(vbsc=10^(data$vbsc/10), indt=t, pszx=pszx, tbsS=tbsS, tvlS=tvlS, mvbS=mvbS))
 	}
 	##################################################

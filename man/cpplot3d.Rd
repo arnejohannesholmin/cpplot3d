@@ -4,9 +4,9 @@
 \name{cpplot3d}
 \alias{cpplot3d}
 \alias{cpplot3d-package}
-\title{3D-plotting and segmentation of sonar data}
+\title{Read and write in the Time Step Data (TSD) format}
 \description{
-This R package provides functions for creating 3D color and point plots using the rgl package, and segmentation of sonar data.
+The `TSD` package provides functions for reading, writing and other processing of data in the Time Step Data (TSD) format (and other utilities used by the packages SimradRaw, sonR, cpplot3d and echoIBM).The TSD format was created for the purpose of storing data organized in time steps possibly with different dimensions at different time steps. It was created in 2010 for personal use by the package author, but the NetCDF 4 format or HDF5 format largely covers the functionality of the TSD format.
 }
 \details{
 Details of the package
