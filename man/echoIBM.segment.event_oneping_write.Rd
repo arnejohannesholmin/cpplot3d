@@ -4,10 +4,40 @@
 \alias{echoIBM.segment.event_oneping_write}
 \title{Writes one ping of segmented data from the Bayesian segmentation method.}
 \usage{
-echoIBM.segment.event_oneping_write(data, beams, time, sgsc, sgsE, ii,
-  thisi, block, thisa, alpha, minsgsc, newfile, segfile, totallength,
-  filesize, pr0s.out, dir.out, var, thisbeta0, thisbeta1, beta0, beta1,
-  lst0, input_misM, misM, h, pow, startn, add, numt, factor, ...)
+echoIBM.segment.event_oneping_write(
+  data,
+  beams,
+  time,
+  sgsc,
+  sgsE,
+  ii,
+  thisi,
+  block,
+  thisa,
+  alpha,
+  minsgsc,
+  newfile,
+  segfile,
+  totallength,
+  filesize,
+  pr0s.out,
+  dir.out,
+  var,
+  thisbeta0,
+  thisbeta1,
+  beta0,
+  beta1,
+  lst0,
+  input_misM,
+  misM,
+  h,
+  pow,
+  startn,
+  add,
+  numt,
+  factor,
+  ...
+)
 }
 \arguments{
 \item{data}{is the list of data including segmentation and acoustic data.}
@@ -39,9 +69,6 @@ echoIBM.segment.event_oneping_write(data, beams, time, sgsc, sgsE, ii,
 \item{dir.out}{is the directory in which to put the segmentaiton files.}
 
 \item{Xcsz}{is the maximum file size.}
-}
-\value{
-
 }
 \description{
 Writes one ping of segmented data from the Bayesian segmentation method.

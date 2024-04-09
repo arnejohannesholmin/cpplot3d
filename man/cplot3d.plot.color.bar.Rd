@@ -4,11 +4,21 @@
 \alias{cplot3d.plot.color.bar}
 \title{Plots the color bar of a cplot3d-plot.}
 \usage{
-cplot3d.plot.color.bar(color.bar.col, breaks = 40, white = 1,
-  log = TRUE, color.bar = "x--", color.bar.lwd = 8,
-  color.bar.adj = 0, color.bar.tadj = 0.1, color.bar.noWhite = TRUE,
-  color.bar.nticks = 8, color.bar.tickw = 0.005,
-  color.bar.tickcol = "black", db = TRUE)
+cplot3d.plot.color.bar(
+  color.bar.col,
+  breaks = 40,
+  white = 1,
+  log = TRUE,
+  color.bar = "x--",
+  color.bar.lwd = 8,
+  color.bar.adj = 0,
+  color.bar.tadj = 0.1,
+  color.bar.noWhite = TRUE,
+  color.bar.nticks = 8,
+  color.bar.tickw = 0.005,
+  color.bar.tickcol = "black",
+  db = TRUE
+)
 }
 \arguments{
 \item{color.bar.col}{is the color of the color bar, generated inside cplot3d.TSD().}
@@ -36,9 +46,6 @@ cplot3d.plot.color.bar(color.bar.col, breaks = 40, white = 1,
 \item{color.bar.tickcol}{is the color of the tich marks.}
 
 \item{db}{is FALSE if the color bar should display linear (not desibel) values.}
-}
-\value{
-
 }
 \description{
 Plots the color bar of a cplot3d-plot.

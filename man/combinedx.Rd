@@ -4,8 +4,17 @@
 \alias{combinedx}
 \title{Returns a color vector of rainbow colors which are desaturated by 's' and darkened by 'v' to obtain the "combined" color scale.}
 \usage{
-combinedx(x, s = c(1, 0.3), v = c(0.7, 1), start = 0, end = 1,
-  clamp = NULL, flip = FALSE, alpha = 1, ...)
+combinedx(
+  x,
+  s = c(1, 0.3),
+  v = c(0.7, 1),
+  start = 0,
+  end = 1,
+  clamp = NULL,
+  flip = FALSE,
+  alpha = 1,
+  ...
+)
 }
 \arguments{
 \item{x}{is a numeric object to which rainbow colors combined with lightening and darkening should be matched.}
@@ -21,9 +30,6 @@ combinedx(x, s = c(1, 0.3), v = c(0.7, 1), start = 0, end = 1,
 \item{alpha}{is the transparency.}
 
 \item{...}{methods passed on to sub-functions (not used, but allowing for unused arguments).}
-}
-\value{
-
 }
 \description{
 Returns a color vector of rainbow colors which are desaturated by 's' and darkened by 'v' to obtain the "combined" color scale.

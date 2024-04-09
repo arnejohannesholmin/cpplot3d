@@ -4,13 +4,33 @@
 \alias{echoIBM.vbsc2p.event}
 \title{Estimates the probability of not school in voxels of the MS70 sonar.}
 \usage{
-echoIBM.vbsc2p.event(event = 1, t = 1, cruise = 2009116,
-  bgns = NULL, beta0 = NULL, beta1 = NULL, factor = NULL,
-  ind = list(-(1:30), NULL), nsind = 0.75, smind = list(-(1:300)),
-  range = list(), subset = NULL, h = NULL, alpha = NULL,
-  dir.data = NULL, hins_add = 10, phase = TRUE, TVG.exp = 2,
-  esnm = "MS70", subtractNoise = TRUE, adds = list(), sim = TRUE,
-  na.rm = 1, allow.old = FALSE, TOV = 0)
+echoIBM.vbsc2p.event(
+  event = 1,
+  t = 1,
+  cruise = 2009116,
+  bgns = NULL,
+  beta0 = NULL,
+  beta1 = NULL,
+  factor = NULL,
+  ind = list(-(1:30), NULL),
+  nsind = 0.75,
+  smind = list(-(1:300)),
+  range = list(),
+  subset = NULL,
+  h = NULL,
+  alpha = NULL,
+  dir.data = NULL,
+  hins_add = 10,
+  phase = TRUE,
+  TVG.exp = 2,
+  esnm = "MS70",
+  subtractNoise = TRUE,
+  adds = list(),
+  sim = TRUE,
+  na.rm = 1,
+  allow.old = FALSE,
+  TOV = 0
+)
 }
 \arguments{
 \item{event}{is the identifier of the event, either given as the number of the event, a string contained in the name of the event, or the path of the event directory.}
@@ -54,9 +74,6 @@ echoIBM.vbsc2p.event(event = 1, t = 1, cruise = 2009116,
 \item{sim}{is a TRUE if smoothing should be done only along the first dimensions, simultaneously over the stages of the last dimension. If 'sim' is an integer larger than 1, the positions 'coords' are used 'sim' times, and the data 'x' should have length 'sim' times the length of one coordinate of 'coords'.}
 
 \item{na.rm}{is single integer representing the dimension along which NAs are discarded from the smoothing in the case that sim==1. For example, if na.rm=2 and the dimension of 'x' is [5,12,7], and x[3,2:4,5]=NA, then all data x[,2:4,] will be excluded from the smoothing and set to NA. If na.rm=FALSE, no NAs should be contained in the data.}
-}
-\value{
-
 }
 \description{
 Estimates the probability of not school in voxels of the MS70 sonar.

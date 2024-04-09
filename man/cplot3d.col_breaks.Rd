@@ -4,11 +4,16 @@
 \alias{cplot3d.col_breaks}
 \title{Internal: Generates colors and beaks for color 3d plots.}
 \usage{
-cplot3d.col_breaks(col, colpar, breaks, white, clamp = c(0, 1), log,
-  rangevbsc, endcol)
-}
-\value{
-
+cplot3d.col_breaks(
+  col,
+  colpar,
+  breaks,
+  white,
+  clamp = c(0, 1),
+  log,
+  rangevbsc,
+  endcol
+)
 }
 \description{
 Internal: Generates colors and beaks for color 3d plots.

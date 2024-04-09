@@ -4,10 +4,18 @@
 \alias{add.clock}
 \title{Add time and date to an rgl plot.}
 \usage{
-add.clock(clock = "bbl", utim = 0, indt = NULL, cex.clock = 1,
+add.clock(
+  clock = "bbl",
+  utim = 0,
+  indt = NULL,
+  cex.clock = 1,
   adj.clock = c(0, 0),
   format.clock = "Ping: indt\\nyyyy-mm-dd\\nHH:MM:SS.FFF",
-  digits.clock = 2, lsp.clock = 0.04, col.clock = 4, D = 3)
+  digits.clock = 2,
+  lsp.clock = 0.04,
+  col.clock = 4,
+  D = 3
+)
 }
 \arguments{
 \item{clock}{is the position of the clock timing the frames, either given as a vector of length 3 representing the coordinates of the clock, as FALSE for no clock, or as one of}
@@ -27,9 +35,6 @@ add.clock(clock = "bbl", utim = 0, indt = NULL, cex.clock = 1,
 \item{lsp.clock}{is the spacing factor for the line break, given as a multiple of the corresponding x-, y- or zlim. Default is 0.04.}
 
 \item{col.clock}{is the color of the plotted time and date.}
-}
-\value{
-
 }
 \description{
 Add time and date to an rgl plot.

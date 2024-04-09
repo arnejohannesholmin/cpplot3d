@@ -4,8 +4,17 @@
 \alias{topo.colorsx}
 \title{Returns a color vector of topographic colors.}
 \usage{
-topo.colorsx(x, v = 1, start = 0, end = 1, clamp = NULL,
-  breakpoint = c(1/3, 2/3), flip = FALSE, alpha = 1, ...)
+topo.colorsx(
+  x,
+  v = 1,
+  start = 0,
+  end = 1,
+  clamp = NULL,
+  breakpoint = c(1/3, 2/3),
+  flip = FALSE,
+  alpha = 1,
+  ...
+)
 }
 \arguments{
 \item{x}{is a numeric object to which rainbow colors combined with lightening and darkening should be matched.}
@@ -21,9 +30,6 @@ topo.colorsx(x, v = 1, start = 0, end = 1, clamp = NULL,
 \item{alpha}{is the transparency.}
 
 \item{...}{methods passed on to sub-functions (not used, but allowing for unused arguments).}
-}
-\value{
-
 }
 \description{
 Returns a color vector of topographic colors.

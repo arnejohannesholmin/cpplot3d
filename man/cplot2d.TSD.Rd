@@ -4,21 +4,52 @@
 \alias{cplot2d.TSD}
 \title{2-D echogram.}
 \usage{
-cplot2d.TSD(data, t = "all", breaks = 40, col = "combined",
-  colpar = list(start = 0, end = 0.8, flip = TRUE), null.value = NA,
-  beamstypes = 1, grid = TRUE, adds = NULL, xlim = NULL,
-  ylim = NULL, zlim = NULL, tlim = NULL, up = FALSE, freq = 1,
-  wb = 1, rmar = 5, xaxis = c("time", "dist", "pings", "compr",
-  "sparse"), gap = median, gapthr = 10, tol = 0.1,
-  heave = c("interp", "pixel", "ignore"), x0 = NULL, unit = NULL,
-  date = c("unique", "all", "none"), nticksx = 10, lwdfact = 55,
-  region = NULL, cs.pos = "v", white = 0, log = TRUE,
-  endcol = c("white", ""), esnm = "MS70", var = c("vbsc", "sgsc",
-  "pr0s", "sgs0", "sgsE", "sgsi", "sgsI", "psis", "tlns"), ind = list(),
-  range = list(), subset = NULL, plot = TRUE, clock = NULL,
+cplot2d.TSD(
+  data,
+  t = "all",
+  breaks = 40,
+  col = "combined",
+  colpar = list(start = 0, end = 0.8, flip = TRUE),
+  null.value = NA,
+  beamstypes = 1,
+  grid = TRUE,
+  adds = NULL,
+  xlim = NULL,
+  ylim = NULL,
+  zlim = NULL,
+  tlim = NULL,
+  up = FALSE,
+  freq = 1,
+  wb = 1,
+  rmar = 5,
+  xaxis = c("time", "dist", "pings", "compr", "sparse"),
+  gap = median,
+  gapthr = 10,
+  tol = 0.1,
+  heave = c("interp", "pixel", "ignore"),
+  x0 = NULL,
+  unit = NULL,
+  date = c("unique", "all", "none"),
+  nticksx = 10,
+  lwdfact = 55,
+  region = NULL,
+  cs.pos = "v",
+  white = 0,
+  log = TRUE,
+  endcol = c("white", ""),
+  esnm = "MS70",
+  var = c("vbsc", "sgsc", "pr0s", "sgs0", "sgsE", "sgsi", "sgsI", "psis", "tlns"),
+  ind = list(),
+  range = list(),
+  subset = NULL,
+  plot = TRUE,
+  clock = NULL,
   cex.clock = 1,
   format.clock = "Ping: indt\\nyyyy-mm-dd\\nHH:MM:SS.FFF",
-  digits.clock = 2, col.clock = 4, ...)
+  digits.clock = 2,
+  col.clock = 4,
+  ...
+)
 }
 \arguments{
 \item{data}{is a list containing the data to plot. Must contain the sv field 'vbsc', or the Sv field 'mvbs', the sampling interval field 'sint' and the average speed of sound 'asps'.}
@@ -42,9 +73,6 @@ cplot2d.TSD(data, t = "all", breaks = 40, col = "combined",
 \item{endcol}{is the color to use for values above the highest break value.}
 
 \item{z}{is the z-position of the echosounder (negative when below the sea surface, 0 when ).}
-}
-\value{
-
 }
 \description{
 2-D echogram.

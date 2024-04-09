@@ -4,8 +4,15 @@
 \alias{echoIBM.sgft.event}
 \title{Calculates various segmentation success measures of segmented data versus theoretical segmented data.}
 \usage{
-echoIBM.sgft.event(event, event0, cruise = 2009116, pamkpar = list(),
-  ind = list(-(1:500), NULL), esnm = "MS70", dir.data = NULL)
+echoIBM.sgft.event(
+  event,
+  event0,
+  cruise = 2009116,
+  pamkpar = list(),
+  ind = list(-(1:500), NULL),
+  esnm = "MS70",
+  dir.data = NULL
+)
 }
 \arguments{
 \item{event}{is the path to the directory holding the segmentation data.}
@@ -15,9 +22,6 @@ echoIBM.sgft.event(event, event0, cruise = 2009116, pamkpar = list(),
 \item{pamkpar}{is a list of parameters ('krange', 'criterion' and 'alpha') used pamk() when clustering the segmented voxels 'sgsc'. The voxels 'sgsc' are also ordered so that the voxels belonging to the largest cluster lead and the second to largest cluster follows.}
 
 \item{ind}{is a list of indexes, as typed into the [] of an array extracting a subset of the segmentation data.}
-}
-\value{
-
 }
 \description{
 Calculates various segmentation success measures of segmented data versus theoretical segmented data.

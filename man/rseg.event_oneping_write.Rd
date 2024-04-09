@@ -4,10 +4,39 @@
 \alias{rseg.event_oneping_write}
 \title{Writes one ping of segmented data from the (SX90) unbiased segmentatino method. Used in rseg.event().}
 \usage{
-rseg.event_oneping_write(d, thisseg, thist, t, utim, valid, subset,
-  dimvbsc, segfilesdir, sfnr, dBan, dBb1, dBb2, dBb3, dBb4, dBbs, Xsbg,
-  Xsb1, thisthr, thersholdFromSchool, Xcsz, save.trh, save.data, save.ind,
-  kern, wt, type, cmpred, ellipsoid, file_thist, reserve)
+rseg.event_oneping_write(
+  d,
+  thisseg,
+  thist,
+  t,
+  utim,
+  valid,
+  subset,
+  dimvbsc,
+  segfilesdir,
+  sfnr,
+  dBan,
+  dBb1,
+  dBb2,
+  dBb3,
+  dBb4,
+  dBbs,
+  Xsbg,
+  Xsb1,
+  thisthr,
+  thersholdFromSchool,
+  Xcsz,
+  save.trh,
+  save.data,
+  save.ind,
+  kern,
+  wt,
+  type,
+  cmpred,
+  ellipsoid,
+  file_thist,
+  reserve
+)
 }
 \arguments{
 \item{d}{is the list of data including segmentation and acoustic data.}
@@ -59,9 +88,6 @@ rseg.event_oneping_write(d, thisseg, thist, t, utim, valid, subset,
 \item{file_thist}{is the time index in the block. If this is equal to 'thist', a new file will be written. Otherwise data will be appended to the file with name given by 'file_thist'.}
 
 \item{reserve}{is used in write.TSD() to reserve time steps for the whole block of time steps.}
-}
-\value{
-
 }
 \description{
 Writes one ping of segmented data from the (SX90) unbiased segmentatino method. Used in rseg.event().

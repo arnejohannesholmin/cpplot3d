@@ -9,9 +9,6 @@ merge_ranges(...)
 \arguments{
 \item{...}{are matrices of range values along the columns. The matrices must have dimension [2 x p], where p is the number of ranges.}
 }
-\value{
-
-}
 \description{
 Finds new ranges from matrices of ranges along the columns.
 }

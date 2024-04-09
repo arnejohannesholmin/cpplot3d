@@ -4,11 +4,17 @@
 \alias{rseg.estimate.noise}
 \title{Estimate the background (noise) level as specified by the Robust segmentation method in Profos.}
 \usage{
-rseg.estimate.noise(event, t_seq = 1, add = 2, t = 1, kern = 21L,
-  type = 2, noisesmooth = 100, noise = NULL, ind = NULL)
-}
-\value{
-
+rseg.estimate.noise(
+  event,
+  t_seq = 1,
+  add = 2,
+  t = 1,
+  kern = 21L,
+  type = 2,
+  noisesmooth = 100,
+  noise = NULL,
+  ind = NULL
+)
 }
 \description{
 Estimate the background (noise) level as specified by the Robust segmentation method in Profos.

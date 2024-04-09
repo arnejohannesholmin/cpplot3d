@@ -29,7 +29,7 @@ pplot3d.set.default.nlim<-function(nlim=NULL,var=c("vbsc","sgsc","pr0s","sgs0","
 	
 	##################################################
 	##################################################
-	if(length(nlim)==0){
+    if(length(nlim)==0){
 		# If segmentation data are used, set nlim to Inf:
 		if(var[1] %in% labl.TSD(var="sg")){
 			Inf
@@ -41,7 +41,7 @@ pplot3d.set.default.nlim<-function(nlim=NULL,var=c("vbsc","sgsc","pr0s","sgs0","
 		 	50^(1:4)
 		 	}
 		}
-	else if(is.infinite(nlim) || identical(nlim,0)){
+	else if(any(is.infinite(nlim)) || identical(nlim,0)){
 		nlim=Inf
 		}
 	else{

@@ -13,9 +13,6 @@ cplot3d.size(type = "lin", y = NULL, par = NULL)
 
 \item{par}{is a vector of 0, 1 or 2 elements representing the parameters to the size function.}
 }
-\value{
-
-}
 \description{
 Returns a function of one signel numeric, returning the sizes used when plotting voxels by cplot3d.TSD(). The input to the retunred function is the number of breaks of the color plot. The inputs to cplot3d.size() are the type of size function, the range of the size values and the parameters of the size function.
 }

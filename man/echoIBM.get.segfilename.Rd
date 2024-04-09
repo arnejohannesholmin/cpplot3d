@@ -4,9 +4,17 @@
 \alias{echoIBM.get.segfilename}
 \title{Locates the path of an event specified by numeric or sting for both 'event' and 'cruise' (used in read.event()), and generates segmentation file names continuing from the extisting numbered segmentation files.}
 \usage{
-echoIBM.get.segfilename(n = 1, t = 0, nchart = NULL, event = 1,
-  cruise = 2009116, esnm = "MS70", dir.data = NULL, add = "",
-  startn = NULL)
+echoIBM.get.segfilename(
+  n = 1,
+  t = 0,
+  nchart = NULL,
+  event = 1,
+  cruise = 2009116,
+  esnm = "MS70",
+  dir.data = NULL,
+  add = "",
+  startn = NULL
+)
 }
 \arguments{
 \item{n}{is an integer giving the sequence number to append to the file name. If n = 3 and there are 4 segmentation files present, the numbers 5, 6, and 7 are added to the file names.}
@@ -26,9 +34,6 @@ echoIBM.get.segfilename(n = 1, t = 0, nchart = NULL, event = 1,
 \item{add}{is a string to add to the file name.}
 
 \item{startn}{is the start number of the files.}
-}
-\value{
-
 }
 \description{
 Locates the path of an event specified by numeric or sting for both 'event' and 'cruise' (used in read.event()), and generates segmentation file names continuing from the extisting numbered segmentation files.

@@ -4,14 +4,12 @@
 \alias{rseg.event_getschoolthr}
 \title{Function for converting the school threshold into a list of functions/single values.}
 \usage{
-rseg.event_getschoolthr(schoolthr = function(S, SBR) 4.4 + 0.013 * S +
-  0.1 * SBR)
+rseg.event_getschoolthr(
+  schoolthr = function(S, SBR) 4.4 + 0.013 * S + 0.1 * SBR
+)
 }
 \arguments{
 \item{schoolthr}{is a function of size and mean volume backscattering strength (S_V) defining the threshold level below the 90-percentile of the school using the initial above-noise-threshold. Can also be is a vector of values, where one segmentation file is written for each value of 'schoolthr'.}
-}
-\value{
-
 }
 \description{
 Function for converting the school threshold into a list of functions/single values.

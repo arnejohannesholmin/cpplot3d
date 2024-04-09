@@ -15,9 +15,6 @@ get.endcol(endcol, col, rangevbsc, breaks, white)
 
 \item{breaks, white}{See \code{\link{cplot3d.event}}.}
 }
-\value{
-
-}
 \description{
 Adds color at the ends of the data.
 }

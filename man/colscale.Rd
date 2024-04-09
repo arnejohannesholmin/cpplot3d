@@ -4,12 +4,25 @@
 \alias{colscale}
 \title{Returns a color vector from the function 'fun' matching the input numeric object 'x', or a sequence of length 'x' from 'start' to 'end' if 'x' is a single integer value (whole number).}
 \usage{
-colscale(x, fun = c("rainbow", "grey", "fade.colorsx", "heat.colors",
-  "terrain.colors", "topo.colors", "cm.colors", "combined"), start = 0,
-  end = 0.8, h = 1/6, s = 1, v = 1, sc = c(1, 0.3), vc = c(0.7,
-  1), flip = FALSE, bias = 1, space = c("rgb", "Lab"),
+colscale(
+  x,
+  fun = c("rainbow", "grey", "fade.colorsx", "heat.colors", "terrain.colors",
+    "topo.colors", "cm.colors", "combined"),
+  start = 0,
+  end = 0.8,
+  h = 1/6,
+  s = 1,
+  v = 1,
+  sc = c(1, 0.3),
+  vc = c(0.7, 1),
+  flip = FALSE,
+  bias = 1,
+  space = c("rgb", "Lab"),
   interpolate = c("linear", "spline", "fadewhite", "fadeblack"),
-  breakpoint = NULL, alpha = 1, ...)
+  breakpoint = NULL,
+  alpha = 1,
+  ...
+)
 }
 \arguments{
 \item{x}{is either a numeric object to which colors should be matched, or the length of the color vector.}
@@ -41,9 +54,6 @@ colscale(x, fun = c("rainbow", "grey", "fade.colorsx", "heat.colors",
 \item{alpha}{is a parameter used in rainbow(), heat.colors(), terrain.colors(), topo.colors() and cm.colors().}
 
 \item{...}{methods passed on to sub-functions (not used, but allowing for unused arguments).}
-}
-\value{
-
 }
 \description{
 Returns a color vector from the function 'fun' matching the input numeric object 'x', or a sequence of length 'x' from 'start' to 'end' if 'x' is a single integer value (whole number).

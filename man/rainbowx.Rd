@@ -4,8 +4,17 @@
 \alias{rainbowx}
 \title{Returns a color vector of rainbow colors. This is a special case of the combinedx() function.}
 \usage{
-rainbowx(x, s = 1, v = 1, start = 0, end = 1, clamp = NULL,
-  flip = FALSE, alpha = 1, ...)
+rainbowx(
+  x,
+  s = 1,
+  v = 1,
+  start = 0,
+  end = 1,
+  clamp = NULL,
+  flip = FALSE,
+  alpha = 1,
+  ...
+)
 }
 \arguments{
 \item{x}{is a numeric object to which rainbow colors combined with lightening and darkening should be matched.}
@@ -21,9 +30,6 @@ rainbowx(x, s = 1, v = 1, start = 0, end = 1, clamp = NULL,
 \item{alpha}{is the transparency.}
 
 \item{...}{methods passed on to sub-functions (not used, but allowing for unused arguments).}
-}
-\value{
-
 }
 \description{
 Returns a color vector of rainbow colors. This is a special case of the combinedx() function.

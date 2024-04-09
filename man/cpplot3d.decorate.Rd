@@ -4,18 +4,42 @@
 \alias{cpplot3d.decorate}
 \title{Plots bounding box, titles, axes, vessel positions, date and time, sonar grid, and global grid to pplot.TSD()/pplot3d.event or cplot.TSD()/cplot3d.event.}
 \usage{
-cpplot3d.decorate(data = NULL, plot = TRUE, aspect = "iso",
-  xyzlim = NULL, nticks = 5, origin = 1, xlab = "x", ylab = "y",
-  zlab = "z", full.box = FALSE, edge.vpos = "", line.vpos = 0,
-  at.vpos = NULL, cex.vpos = 1, col.vpos = "blue", clock = "bbl",
-  cex.clock = 1, adj.clock = c(0, 0),
+cpplot3d.decorate(
+  data = NULL,
+  plot = TRUE,
+  aspect = "iso",
+  xyzlim = NULL,
+  nticks = 5,
+  origin = 1,
+  xlab = "x",
+  ylab = "y",
+  zlab = "z",
+  full.box = FALSE,
+  edge.vpos = "",
+  line.vpos = 0,
+  at.vpos = NULL,
+  cex.vpos = 1,
+  col.vpos = "blue",
+  clock = "bbl",
+  cex.clock = 1,
+  adj.clock = c(0, 0),
   format.clock = "Ping: indt\\nyyyy-mm-dd\\nHH:MM:SS.FFF",
-  digits.clock = 2, lsp.clock = 0.04, col.clock = 4,
-  sonar.grid = "frame", sonar.grid.col = c("orange", "cornflowerblue"),
-  sonar.grid.lwd = 1, cs.pos = "g", cs.view = "g", sides = c("tb",
-  "tb"), dens = c(200, 100, 100, 1), every = Inf,
-  global.grid = FALSE, global.grid.lwd = 0.5, global.grid.lty = 1,
-  ...)
+  digits.clock = 2,
+  lsp.clock = 0.04,
+  col.clock = 4,
+  sonar.grid = "frame",
+  sonar.grid.col = c("orange", "cornflowerblue"),
+  sonar.grid.lwd = 1,
+  cs.pos = "g",
+  cs.view = "g",
+  sides = c("tb", "tb"),
+  dens = c(200, 100, 100, 1),
+  every = Inf,
+  global.grid = FALSE,
+  global.grid.lwd = 0.5,
+  global.grid.lty = 1,
+  ...
+)
 }
 \arguments{
 \item{data}{is a list containing "utim", "dira", "dire", "asps", "sint", "lenb", "psxv", "psyv", "pszv", "psze", and "rtzv".}
@@ -85,9 +109,6 @@ cpplot3d.decorate(data = NULL, plot = TRUE, aspect = "iso",
 \item{...}{are inputs passed on to add.sonar.grid().}
 
 \item{add}{is TRUE if points are to be added to an existing plot.}
-}
-\value{
-
 }
 \description{
 Plots bounding box, titles, axes, vessel positions, date and time, sonar grid, and global grid to pplot.TSD()/pplot3d.event or cplot.TSD()/cplot3d.event.
