@@ -4,9 +4,18 @@
 \alias{fplot3d.TSD}
 \title{Plots fish as points or lines in 3-D, from data "psxf", "psyf", "pszf", "rtzf", "rtxf" given in 'data'.}
 \usage{
-fplot3d.TSD(data, schoolcol = "red2", schoolsize = 0.3,
-  schoolsample = 0.01, schoollen = 4, schoollwd = 1,
-  schooltype = "p", add = FALSE, aspect = "iso", ...)
+fplot3d.TSD(
+  data,
+  schoolcol = "red2",
+  schoolsize = 0.3,
+  schoolsample = 0.01,
+  schoollen = 4,
+  schoollwd = 1,
+  schooltype = "p",
+  add = FALSE,
+  aspect = "iso",
+  ...
+)
 }
 \arguments{
 \item{schoolcol}{is the color of the points of the fish positions if school==TRUE or a string representing the directory containing .school files to be read for fish positions.}
@@ -28,9 +37,6 @@ fplot3d.TSD(data, schoolcol = "red2", schoolsize = 0.3,
 \item{event}{is the identifier of the event, either given as the number of the event, a string contained in the name of the event, or the path of the event directory.}
 
 \item{t}{is either a vector of the numbers of the pings to be returned, as listed from 1 to the number of pings in the event, or a vector of time points given as strings "yyyymmddHHMMSS.FFF" or "HHMMSS.FFF" from which the range of the time points to be read is extracted. If t=="all", all files are read and if t=="none" an empty list is returned.}
-}
-\value{
-
 }
 \description{
 Plots fish as points or lines in 3-D, from data "psxf", "psyf", "pszf", "rtzf", "rtxf" given in 'data'.

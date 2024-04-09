@@ -4,8 +4,13 @@
 \alias{sv2pos_get_ind}
 \title{Extracts a subset of TSD data according to the array subset 'ind' and/or the cartesian subset 'range' and/or the logical/numeric vector of subscripts 'subset'.}
 \usage{
-sv2pos_get_ind(data, ind = list(), range = list(), subset = NULL,
-  strict = TRUE)
+sv2pos_get_ind(
+  data,
+  ind = list(),
+  range = list(),
+  subset = NULL,
+  strict = TRUE
+)
 }
 \arguments{
 \item{data}{is a list of elements named according to the TSD file format.}
@@ -17,9 +22,6 @@ sv2pos_get_ind(data, ind = list(), range = list(), subset = NULL,
 \item{subset}{is a numeric or logical vector/expression indicating elements or rows to keep (as used in subset()). Missing values are taken as false, and subset=0 or subset=NULL indicates no subsetting.}
 
 \item{strict}{is TRUE if strict inequality is to be used when subsetting according to 'range'.}
-}
-\value{
-
 }
 \description{
 Extracts a subset of TSD data according to the array subset 'ind' and/or the cartesian subset 'range' and/or the logical/numeric vector of subscripts 'subset'.

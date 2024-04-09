@@ -6,9 +6,6 @@
 \usage{
 locateNonVerticalBeamMode(t, event)
 }
-\value{
-
-}
 \description{
 Internal: Detects time steps with non-vertical beam mode, which can be used to override the beam mode specified in raw files.
 }

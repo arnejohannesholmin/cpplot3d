@@ -4,8 +4,12 @@
 \alias{set.view3d}
 \title{Function for extracting the view point of an rgl plot.}
 \usage{
-set.view3d(view = c("free", "top", "bottom", "south", "west", "north",
-  "east"), cs.pos = "g", cs.view = "g", rtzv = 0)
+set.view3d(
+  view = c("free", "top", "bottom", "south", "west", "north", "east"),
+  cs.pos = "g",
+  cs.view = "g",
+  rtzv = 0
+)
 }
 \arguments{
 \item{view}{defines the view point of the user and has 4 possible values:}
@@ -15,9 +19,6 @@ set.view3d(view = c("free", "top", "bottom", "south", "west", "north",
 \item{cs.view}{defines the coordinate system to use when specifying the view point. Given as one of "g" or "v" representing the global coordinate and the coordinate system of the vessel.}
 
 \item{rtzv}{is the heading of the vessel.}
-}
-\value{
-
 }
 \description{
 Function for extracting the view point of an rgl plot.

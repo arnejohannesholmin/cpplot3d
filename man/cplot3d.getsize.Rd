@@ -9,9 +9,6 @@ cplot3d.getsize(size)
 \arguments{
 \item{size}{Either a numeric, function, or character representing a pre-defined function (such as SU90 or MS70).}
 }
-\value{
-
-}
 \description{
 Returns a function of one signel numeric, returning the sizes used when plotting voxels by cplot3d.TSD(). The input to the retunred function is the number of breaks of the color plot. The inputs to cplot3d.size() are the type of size function, the range of the size values and the parameters of the size function.
 }

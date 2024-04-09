@@ -4,10 +4,20 @@
 \alias{fplot3d.event}
 \title{Plots fish as points or lines in 3-D, from data "psxf", "psyf", "pszf", "rtzf", "rtxf" located in the event.}
 \usage{
-fplot3d.event(event, t = 1, schoolcol = "red2", schoolsize = 0.3,
-  schoolsample = 0.01, schoollen = 4, schoollwd = 1,
-  schooltype = "p", schoolnumt = NULL, add = FALSE, aspect = "iso",
-  ...)
+fplot3d.event(
+  event,
+  t = 1,
+  schoolcol = "red2",
+  schoolsize = 0.3,
+  schoolsample = 0.01,
+  schoollen = 4,
+  schoollwd = 1,
+  schooltype = "p",
+  schoolnumt = NULL,
+  add = FALSE,
+  aspect = "iso",
+  ...
+)
 }
 \arguments{
 \item{event}{is the identifier of the event, either given as the number of the event, a string contained in the name of the event, or the path of the event directory.}
@@ -31,9 +41,6 @@ fplot3d.event(event, t = 1, schoolcol = "red2", schoolsize = 0.3,
 \item{add}{is TRUE if points are to be added to an existing plot.}
 
 \item{aspect}{is used to set the dimension of the plotting frame (see aspect3d()).}
-}
-\value{
-
 }
 \description{
 Plots fish as points or lines in 3-D, from data "psxf", "psyf", "pszf", "rtzf", "rtxf" located in the event.

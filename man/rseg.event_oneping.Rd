@@ -4,10 +4,43 @@
 \alias{rseg.event_block}
 \title{Segments one ping with the (SX90) unbiased segmentatino method. Used in rseg.event().}
 \usage{
-rseg.event_block(t_seq, t, utim, noise, noisethr, thr, segfilesdir, sfnr,
-  thersholdFromSchool, dBb1, dBb2, dBb3, dBb4, dBbs, nseg1, nseg2, Xcsz,
-  add, event, kern, type, noisesmooth, ind, range, beamend, save.trh,
-  save.data, save.ind, wt, esnm, cmpred, avoid, ellipsoid, nlmp, ...)
+rseg.event_block(
+  t_seq,
+  t,
+  utim,
+  noise,
+  noisethr,
+  thr,
+  segfilesdir,
+  sfnr,
+  thersholdFromSchool,
+  dBb1,
+  dBb2,
+  dBb3,
+  dBb4,
+  dBbs,
+  nseg1,
+  nseg2,
+  Xcsz,
+  add,
+  event,
+  kern,
+  type,
+  noisesmooth,
+  ind,
+  range,
+  beamend,
+  save.trh,
+  save.data,
+  save.ind,
+  wt,
+  esnm,
+  cmpred,
+  avoid,
+  ellipsoid,
+  nlmp,
+  ...
+)
 }
 \arguments{
 \item{t_seq}{is the time step index. One of 1:t.}
@@ -45,9 +78,6 @@ rseg.event_block(t_seq, t, utim, noise, noisethr, thr, segfilesdir, sfnr,
 \item{cmpred}{is a three column matrix holding the centers of mass of the ellipsoid outside which no samples are discarded from the segmentation mask. This matrix must have one row per time step, starting at the first time step.}
 
 \item{ellipsoid}{is an optional vector of up to three elements specifying the semi axes of an ellipsoid centered at the center of mass of a user selected region, outside which voxels will not be included in the segmentation. The ellispoid can be set to move with the center of mass of the segmented voxels.}
-}
-\value{
-
 }
 \description{
 Segments one ping with the (SX90) unbiased segmentatino method. Used in rseg.event().

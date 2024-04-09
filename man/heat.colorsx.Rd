@@ -4,8 +4,18 @@
 \alias{heat.colorsx}
 \title{Returns a color vector of heat colors.}
 \usage{
-heat.colorsx(x, h = 1/6, v = 1, start = 0, end = 1, clamp = NULL,
-  breakpoint = 0.75, flip = FALSE, alpha = 1, ...)
+heat.colorsx(
+  x,
+  h = 1/6,
+  v = 1,
+  start = 0,
+  end = 1,
+  clamp = NULL,
+  breakpoint = 0.75,
+  flip = FALSE,
+  alpha = 1,
+  ...
+)
 }
 \arguments{
 \item{x}{is a numeric object to which rainbow colors combined with lightening and darkening should be matched.}
@@ -23,9 +33,6 @@ heat.colorsx(x, h = 1/6, v = 1, start = 0, end = 1, clamp = NULL,
 \item{alpha}{is the transparency.}
 
 \item{...}{methods passed on to sub-functions (not used, but allowing for unused arguments).}
-}
-\value{
-
 }
 \description{
 Returns a color vector of heat colors.

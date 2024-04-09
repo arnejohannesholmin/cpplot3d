@@ -78,7 +78,7 @@ add.sonar.grid<-function(data, xyzlim=NULL, xyzlim.out=FALSE, sonar.grid="frame"
 			every=length(data$psxv)+1
 			}
 		# Create the time steps for which the grid should be plotted:
-		every=unique(c(seq(1,length(data$psxv),every),length(data$psxv)))
+	    every=unique(c(seq(1,length(data$psxv),every),length(data$psxv)))
 		}
 	else{
 		every=unique(every)

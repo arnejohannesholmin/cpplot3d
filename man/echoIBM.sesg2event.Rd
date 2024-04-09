@@ -4,9 +4,18 @@
 \alias{echoIBM.sesg2event}
 \title{Creates a new event from segmentation files. The directory of the event must be created in advance, to ensure secure generation of the event.}
 \usage{
-echoIBM.sesg2event(event, pingsdir, t = 1, filesize = 3e+08,
-  type = "scsg", segpar = NULL, ow = TRUE, cruise = 2009116,
-  esnm = "MS70", dir.data = NULL)
+echoIBM.sesg2event(
+  event,
+  pingsdir,
+  t = 1,
+  filesize = 3e+08,
+  type = "scsg",
+  segpar = NULL,
+  ow = TRUE,
+  cruise = 2009116,
+  esnm = "MS70",
+  dir.data = NULL
+)
 }
 \arguments{
 \item{event}{is the identifier of the event holding the segmentation files, either given as the number of the event, a string contained in the name of the event, or the path of the event directory.}
@@ -28,9 +37,6 @@ echoIBM.sesg2event(event, pingsdir, t = 1, filesize = 3e+08,
 \item{esnm}{is the name of the acoustical instrument, given as a four character string. Currently implemented are "EK60", "ME70", "MS70" and "SH80"/"SX80"/"SH90"/"SX90" (may be given in lover case)}
 
 \item{dir.data}{is the path to the directory in which the projects are stored, defaulted by the variable Acoustics_datasets_directory().}
-}
-\value{
-
 }
 \description{
 Creates a new event from segmentation files. The directory of the event must be created in advance, to ensure secure generation of the event.

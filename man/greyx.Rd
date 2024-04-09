@@ -4,8 +4,7 @@
 \alias{greyx}
 \title{Returns a color vector of heat colors.}
 \usage{
-greyx(x, s = 0, start = 0, end = 1, clamp = NULL, flip = FALSE,
-  alpha = 1, ...)
+greyx(x, s = 0, start = 0, end = 1, clamp = NULL, flip = FALSE, alpha = 1, ...)
 }
 \arguments{
 \item{x}{is a numeric object to which rainbow colors combined with lightening and darkening should be matched.}
@@ -21,9 +20,6 @@ greyx(x, s = 0, start = 0, end = 1, clamp = NULL, flip = FALSE,
 \item{h}{is the value hue at the end point of the heat color vector, defaulted to 1/6 to move from red to yellow.}
 
 \item{v}{is the value (lightness) of the colors.}
-}
-\value{
-
 }
 \description{
 Returns a color vector of heat colors.

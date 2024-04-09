@@ -4,8 +4,11 @@
 \alias{pplot3d.set.default.nlim}
 \title{Sets the default 'nlim' used in pplot3d-functions.}
 \usage{
-pplot3d.set.default.nlim(nlim = NULL, var = c("vbsc", "sgsc", "pr0s",
-  "sgs0", "sgsE", "tlns"), esnm = "MS70")
+pplot3d.set.default.nlim(
+  nlim = NULL,
+  var = c("vbsc", "sgsc", "pr0s", "sgs0", "sgsE", "tlns"),
+  esnm = "MS70"
+)
 }
 \arguments{
 \item{nlim}{is the maximum number of points in a voxel, before the number of points is recalculated to n*fact.}
@@ -13,9 +16,6 @@ pplot3d.set.default.nlim(nlim = NULL, var = c("vbsc", "sgsc", "pr0s",
 \item{var}{is a string specifying the variable to plot. Currently supported are "vbsc", for volume backscattering data, "sgsc"/"sgs0"/"sgsE", for thresholded segmentation data, "pr0s" for unhtresholded not-school probability data, and "tlns" for pure estimated noise.}
 
 \item{esnm}{is the name of the acoustical instrument, given as a four character string. See sonR_implemented() for the implemented systems. May be given in 'data', and in lower case.}
-}
-\value{
-
 }
 \description{
 Sets the default 'nlim' used in pplot3d-functions.

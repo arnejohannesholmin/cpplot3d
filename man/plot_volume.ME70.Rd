@@ -4,9 +4,16 @@
 \alias{plot_volume.ME70}
 \title{A simple but unelegant way of plotting the sonar volume.}
 \usage{
-plot_volume.ME70(data, xyzlim = NULL, every = Inf,
-  length_edges = 200, length_bows = 100, bowdens = 100,
-  col = "black", ...)
+plot_volume.ME70(
+  data,
+  xyzlim = NULL,
+  every = Inf,
+  length_edges = 200,
+  length_bows = 100,
+  bowdens = 100,
+  col = "black",
+  ...
+)
 }
 \arguments{
 \item{data}{is a list of data including the elements named "dira", "dire", "asps", "sint", "lenb", "rtzv", "psxv", "psyv", "pszv" and "psze".}
@@ -24,9 +31,6 @@ plot_volume.ME70(data, xyzlim = NULL, every = Inf,
 \item{col}{is the color for the plotted frame.}
 
 \item{...}{are inputs passed on to lines3d().}
-}
-\value{
-
 }
 \description{
 A simple but unelegant way of plotting the sonar volume.

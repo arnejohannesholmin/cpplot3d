@@ -4,8 +4,14 @@
 \alias{inside.object3d}
 \title{Returns a numeric or logical vector for whether the 3D positions given in 'x' are inside the object specified by 'object', 'center', 'angle' and 'par'.}
 \usage{
-inside.object3d(x, object = c("ellipsoid", "cuboid"), par = c(1, 1, 1),
-  center = c(0, 0, 0), angle = 0, logical = FALSE)
+inside.object3d(
+  x,
+  object = c("ellipsoid", "cuboid"),
+  par = c(1, 1, 1),
+  center = c(0, 0, 0),
+  angle = 0,
+  logical = FALSE
+)
 }
 \arguments{
 \item{x}{is a three column matrix representing the x- y- and z-coordinates. If x is a vector, it is considered to be one single 3D point.}
@@ -19,9 +25,6 @@ inside.object3d(x, object = c("ellipsoid", "cuboid"), par = c(1, 1, 1),
 \item{angle}{is the angle of the major axis of the ellipsoid in the x-y-plane, in the case that object=="ellipsoid".}
 
 \item{logical}{is TRUE if the output should be locigal instead of numeric.}
-}
-\value{
-
 }
 \description{
 Returns a numeric or logical vector for whether the 3D positions given in 'x' are inside the object specified by 'object', 'center', 'angle' and 'par'.

@@ -3,15 +3,15 @@ cpplot3d R package
 
 This R package provides functions for creating 3D color and point plots using the rgl package, and segmentation of sonar data.
 
-Version: 1.1
-Required R version: 3.5
+Version: 1.2
+Required R version: 4.2
 
 Installation
 =====
 
 ``` r
 # Install the packages that cpplot3d depends on. Note that this updates all the specified packages to the latest (binary) version. To skip installing already installed packages, run install.packages(setdiff(dep.pck, installed.packages()[,"Package"]), repos="http://cran.us.r-project.org") instead:
-dep.pck <- c("devtools", "akima", "ccaPP", "data.table", "fBasics", "fields", "fpc", "gdata", "gsl", "ncdf4", "pbapply", "rgl", "SoDA", "XML")
+dep.pck <- c("devtools", "akima", "ccaPP", "data.table", "expint", "fBasics", "fields", "fpc", "gdata", "gsl", "ncdf4", "pbapply", "rgl", "sf", "XML")
 install.packages(dep.pck, repos="http://cran.us.r-project.org", type="binary")
 
 # Install cpplot3d and also the packages that cpplot3d depends on which are on GitHub (by Holmin):

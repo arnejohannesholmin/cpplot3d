@@ -4,8 +4,7 @@
 \alias{echoIBM.rbeta02sgth}
 \title{Returns segmentation threshold values 'c' corresponding to the input realtive lower schooling threshold values 'rbeta0'. The function only treats one time step, which implies that 'misM' must have length 1 if given (one school of one time step).}
 \usage{
-echoIBM.rbeta02sgth(rbeta0, misM = NULL, pow = 1, table.out = FALSE,
-  ...)
+echoIBM.rbeta02sgth(rbeta0, misM = NULL, pow = 1, table.out = FALSE, ...)
 }
 \arguments{
 \item{rbeta0}{is an array of relative lower schooling threshold values.}
@@ -17,9 +16,6 @@ echoIBM.rbeta02sgth(rbeta0, misM = NULL, pow = 1, table.out = FALSE,
 \item{table.out}{is TRUE to return only the table.}
 
 \item{...}{are parameters used in approx().}
-}
-\value{
-
 }
 \description{
 Returns segmentation threshold values 'c' corresponding to the input realtive lower schooling threshold values 'rbeta0'. The function only treats one time step, which implies that 'misM' must have length 1 if given (one school of one time step).

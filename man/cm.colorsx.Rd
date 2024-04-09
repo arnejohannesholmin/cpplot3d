@@ -4,8 +4,17 @@
 \alias{cm.colorsx}
 \title{Returns a color vector moving from cyan to magenta via white.}
 \usage{
-cm.colorsx(x, v = 1, start = 0, end = 1, clamp = NULL,
-  breakpoint = 0.5, flip = FALSE, alpha = 1, ...)
+cm.colorsx(
+  x,
+  v = 1,
+  start = 0,
+  end = 1,
+  clamp = NULL,
+  breakpoint = 0.5,
+  flip = FALSE,
+  alpha = 1,
+  ...
+)
 }
 \arguments{
 \item{x}{is a numeric object to which rainbow colors combined with lightening and darkening should be matched.}
@@ -21,9 +30,6 @@ cm.colorsx(x, v = 1, start = 0, end = 1, clamp = NULL,
 \item{alpha}{is the transparency.}
 
 \item{...}{variables passed on from other functions.}
-}
-\value{
-
 }
 \description{
 Returns a color vector moving from cyan to magenta via white.

@@ -4,10 +4,20 @@
 \alias{add.sonar.grid}
 \title{Plots or calculates the limits of sonar grids for the MS70 or the ME70.}
 \usage{
-add.sonar.grid(data, xyzlim = NULL, xyzlim.out = FALSE,
-  sonar.grid = "frame", sonar.grid.col = c("orange", "cornflowerblue"),
-  sonar.grid.lwd = 1, cs.pos = "g", cs.view = "g", sides = c("tb",
-  "tb"), dens = c(200, 100, 100, 1), every = Inf, ...)
+add.sonar.grid(
+  data,
+  xyzlim = NULL,
+  xyzlim.out = FALSE,
+  sonar.grid = "frame",
+  sonar.grid.col = c("orange", "cornflowerblue"),
+  sonar.grid.lwd = 1,
+  cs.pos = "g",
+  cs.view = "g",
+  sides = c("tb", "tb"),
+  dens = c(200, 100, 100, 1),
+  every = Inf,
+  ...
+)
 }
 \arguments{
 \item{data}{is a list containing the data to plot, as returned from read.event(..., var=c("vbsc", "voxels", "ctd", "beams", "vessel", "time")). May include school positions data$psxf, data$psyf and data$pszf.}
@@ -33,9 +43,6 @@ add.sonar.grid(data, xyzlim = NULL, xyzlim.out = FALSE,
 \item{every}{(used in plot_volume.ME70()) is a single integer representing that the frame should be plotted every 'every' time step, where the first and last are included, or a vector of integers giving the time steps for which the frame should be plotted (not including the first and last time step).}
 
 \item{...}{are inputs passed on to plot_volume.ME70() and plot_volume.MS70().}
-}
-\value{
-
 }
 \description{
 Plots or calculates the limits of sonar grids for the MS70 or the ME70.
